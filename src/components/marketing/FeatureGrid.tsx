@@ -2,12 +2,12 @@ import { Brain, Wallet, Clock, ShieldCheck, Users, LineChart } from "lucide-reac
 import Reveal from "./Reveal";
 
 const features = [
-  { icon: Brain, title: "AI trading engine", desc: "Proprietary models analyze 50+ forex pairs across timezones and execute autonomously." },
+  { icon: Brain, title: "Specialized in XAU/USD", desc: "Our AI is trained exclusively on gold pairs — XAU/USD and XAG/USD — for sharper, more profitable execution." },
   { icon: Wallet, title: "Dual currency wallet", desc: "Deposit and withdraw in INR or USD. Real-time conversion with no hidden spreads." },
   { icon: Clock, title: "Daily 12 AM settlement", desc: "Profits credited to your wallet every midnight IST. No waiting, no lock-ins." },
   { icon: ShieldCheck, title: "KYC-secured", desc: "Aadhaar-verified accounts only. Bank-grade encryption on every transaction." },
   { icon: Users, title: "3-tier referrals", desc: "Earn from your network — L1 1%, L2 0.5%, L3 0.25% of monthly profits." },
-  { icon: LineChart, title: "Real-time tracking", desc: "Live positions, settlement history, and analytics — always one tap away." },
+  { icon: LineChart, title: "100% hands-free", desc: "No charts to read, no buttons to press. The AI runs everything — you just check your wallet." },
 ];
 
 export default function FeatureGrid() {
