@@ -1,65 +1,26 @@
 
 
-## Clean Same-Origin Download URL
+## Fix "File wasn't available on site" error
 
-**Goal:** Replace the `*.supabase.co` URL with a path under your own site:
-- Today (preview): `https://id-preview--f76b585d-...lovable.app/download/tradeway.apk`
-- After custom domain: `https://tradeway.app/download/tradeway.apk`
+**Root cause:** Marketing buttons use `<a href="/download/tradeway.apk" download="TradeWay.apk">`. The `download` attribute tells the browser to treat that URL as a binary file. Lovable's SPA hosting returns `index.html` for that path (since no real file exists there) — so the browser sees an HTML response where it expected a file and shows **"File wasn't available on site"**. Our React `DownloadApk` page never even gets a chance to mount and trigger the blob download.
 
-The user only ever sees your domain in the browser address bar and download prompt — `supabase.co` is fully hidden.
+### Fix
+Remove the `download` attribute from same-origin SPA links. Replace `<a href download>` with React Router `<Link>` (or plain `<a href>` without the `download` attribute) so the browser performs a normal SPA navigation. The `DownloadApk` page then mounts, fetches the APK as a blob, and triggers the actual save dialog (which already sets `download="TradeWay.apk"` on the dynamically created `<a>` — that part works because the `href` is a `blob:` URL, not a route path).
 
-### How it works
+### Files to edit
+1. **`src/components/marketing/Hero.tsx`** (line ~64) — change `<a href={APK_DOWNLOAD_URL} download={APK_FILENAME}>` → `<Link to={APK_DOWNLOAD_URL}>`
+2. **`src/components/marketing/SiteHeader.tsx`** (lines ~49 and ~81) — same change for desktop and mobile buttons
+3. **`src/components/marketing/CTABanner.tsx`** (line ~22) — same change
 
-Lovable hosting serves a SPA, so any path that isn't a real file falls back to `index.html`. We can't intercept `/download/tradeway.apk` at the hosting layer to stream a binary. Instead, we'll use a two-step pattern:
+Add `import { Link } from "react-router-dom"` where missing. Drop the now-unused `APK_FILENAME` import in those three files (keep it in `DownloadApk.tsx` where it's actually used on the blob anchor).
 
-1. **`/download/tradeway.apk`** → React route that immediately triggers a client-side fetch + blob download from the Supabase storage URL behind the scenes, then redirects back to home.
-2. **All Download buttons** → link to `/download/tradeway.apk` (relative path, so it stays on whatever domain is active).
+### What stays the same
+- `src/lib/appDownload.ts` — no changes
+- `src/pages/DownloadApk.tsx` — no changes (already correct: fetches blob, triggers download with proper filename)
+- `src/App.tsx` — route already registered
 
-The browser's download dialog shows just **`TradeWay.apk`** as the filename. The Supabase URL is fetched in JS but never appears in the address bar or download prompt.
-
-### Implementation
-
-**1. New route page: `src/pages/DownloadApk.tsx`**
-- On mount: `fetch(SUPABASE_APK_URL)` → `response.blob()` → create object URL → programmatically click hidden `<a download="TradeWay.apk">` → revoke URL
-- Show a friendly "Preparing your download…" screen with spinner + TradeWay branding while the 85 MB downloads in memory
-- After download triggers, show "Download started! If it didn't, [click here]" fallback link
-- Auto-redirect to `/` after 5 seconds (optional)
-
-**2. Update `src/App.tsx`**
-- Add route: `<Route path="/download/tradeway.apk" element={<DownloadApk />} />`
-- Place it BEFORE the catch-all `*` NotFound route
-
-**3. Update `src/lib/appDownload.ts`**
-- Keep `SUPABASE_APK_URL` (internal, used by DownloadApk page)
-- Change `APK_DOWNLOAD_URL` to the clean public path: `/download/tradeway.apk`
-- Keep `APK_FILENAME = "TradeWay.apk"`
-
-**4. Update Download buttons** (no logic change, just URL)
-Files using `APK_DOWNLOAD_URL` already — they'll automatically pick up the new clean path:
-- `src/components/marketing/Hero.tsx`
-- `src/components/marketing/SiteHeader.tsx` (desktop + mobile)
-- `src/components/marketing/CTABanner.tsx`
-
-The `<a href={APK_DOWNLOAD_URL} download={APK_FILENAME}>` pattern stays — but now `href` is `/download/tradeway.apk` (same origin) instead of the supabase URL.
-
-### What the user sees
-- Click "Download App" → browser navigates to `tradeway.app/download/tradeway.apk`
-- Branded loading screen appears: "Preparing TradeWay APK… 85 MB"
-- Native download prompt opens with filename `TradeWay.apk` — **no domain shown next to the file**
-- Page auto-returns to homepage
-
-### After connecting custom domain
-Zero code changes needed. The relative path `/download/tradeway.apk` automatically works on:
-- `*.lovable.app` (preview)
-- `tradeway.app` (your custom domain, once connected)
-- `www.tradeway.app`
-
-### Trade-off
-The 85 MB APK is fetched into browser memory before the save dialog appears (1–10 seconds on good connection). The loading screen makes this feel intentional rather than broken. This is the standard pattern used by sites like Telegram, Signal, etc. for same-origin APK downloads.
-
-### Files touched
-- **New:** `src/pages/DownloadApk.tsx`
-- **Edit:** `src/App.tsx` (add route)
-- **Edit:** `src/lib/appDownload.ts` (split into `SUPABASE_APK_URL` + clean `APK_DOWNLOAD_URL`)
-- No changes needed to Hero / SiteHeader / CTABanner — they already consume `APK_DOWNLOAD_URL`
+### Result
+- Click "Download App" → SPA navigates to `/download/tradeway.apk`
+- Branded "Preparing your download…" screen appears with progress
+- Native save dialog opens with filename **`TradeWay.apk`** — no error, no Supabase domain visible
 
