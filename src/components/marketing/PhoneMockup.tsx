@@ -1,5 +1,13 @@
 import { motion } from "framer-motion";
-import { TrendingUp, ArrowUpRight, Wallet, Users, Gift, ArrowDownToLine } from "lucide-react";
+import { TrendingUp, ArrowUpRight, Wallet, ArrowUpRight as Up, ArrowDownRight } from "lucide-react";
+
+const trades = [
+  { pair: "XAU/USD", type: "BUY", pnl: "+$142.30", up: true, time: "10:42" },
+  { pair: "XAU/USD", type: "SELL", pnl: "+$86.10", up: true, time: "09:18" },
+  { pair: "XAG/USD", type: "BUY", pnl: "+$54.40", up: true, time: "08:05" },
+  { pair: "XAU/USD", type: "BUY", pnl: "-$22.80", up: false, time: "Yesterday" },
+  { pair: "XAU/USD", type: "SELL", pnl: "+$118.60", up: true, time: "Yesterday" },
+];
 
 const Dashboard = () => (
   <div className="relative p-5 space-y-4 h-full">
@@ -33,8 +41,6 @@ const Dashboard = () => (
       {[
         { pair: "XAU/USD", val: "+1.84%" },
         { pair: "XAG/USD", val: "+1.12%" },
-        { pair: "Gold M5", val: "+0.62%" },
-        { pair: "Gold H1", val: "+1.45%" },
       ].map((p) => (
         <div key={p.pair} className="panel-muted rounded-xl p-2.5">
           <p className="text-[10px] text-muted-foreground">{p.pair}</p>
@@ -45,97 +51,30 @@ const Dashboard = () => (
       ))}
     </div>
 
-    <div className="panel rounded-2xl p-3 flex items-center justify-between">
-      <div>
-        <p className="text-[10px] text-muted-foreground">Next settlement</p>
-        <p className="text-sm font-semibold">12:00 AM IST</p>
+    <div className="panel rounded-2xl p-3">
+      <div className="flex items-center justify-between mb-2.5">
+        <p className="text-[10px] uppercase tracking-widest text-muted-foreground">Trade history</p>
+        <span className="text-[9px] text-muted-foreground">Last 5</span>
       </div>
-      <div className="h-[3px] w-16 rounded-full signal-line animate-pulseLine" />
-    </div>
-  </div>
-);
-
-const WalletScreen = () => (
-  <div className="relative p-5 space-y-4 h-full">
-    <div>
-      <p className="text-[10px] uppercase tracking-widest text-muted-foreground">Wallet balance</p>
-      <p className="font-display font-extrabold text-3xl mt-1">₹2,84,210</p>
-      <p className="text-[11px] text-muted-foreground mt-0.5">≈ $3,402.50 USD</p>
-    </div>
-
-    <div className="grid grid-cols-2 gap-2.5">
-      <button className="panel-muted rounded-xl p-3 text-left">
-        <ArrowDownToLine size={14} className="text-primary mb-1" />
-        <p className="text-xs font-semibold">Withdraw</p>
-      </button>
-      <button className="panel-muted rounded-xl p-3 text-left">
-        <Wallet size={14} className="text-primary mb-1" />
-        <p className="text-xs font-semibold">Deposit</p>
-      </button>
-    </div>
-
-    <div className="panel rounded-2xl p-4 space-y-3">
-      <p className="text-[10px] uppercase tracking-widest text-muted-foreground">Recent settlements</p>
-      {[
-        { d: "Today", v: "+₹4,820" },
-        { d: "Yesterday", v: "+₹3,210" },
-        { d: "Apr 21", v: "+₹5,140" },
-        { d: "Apr 20", v: "+₹2,980" },
-      ].map((r) => (
-        <div key={r.d} className="flex items-center justify-between text-xs">
-          <span className="text-muted-foreground">{r.d}</span>
-          <span className="text-success font-semibold">{r.v}</span>
-        </div>
-      ))}
-    </div>
-  </div>
-);
-
-const ReferScreen = () => (
-  <div className="relative p-5 space-y-4 h-full">
-    <div>
-      <p className="text-[10px] uppercase tracking-widest text-muted-foreground">Referral earnings</p>
-      <p className="font-display font-extrabold text-3xl mt-1 text-signal">₹14,820</p>
-      <p className="text-[11px] text-success mt-0.5">+₹420 this month</p>
-    </div>
-
-    <div className="panel rounded-2xl p-4">
-      <div className="flex items-center gap-2 mb-3">
-        <Gift size={14} className="text-primary" />
-        <p className="text-xs font-semibold">Your code</p>
-      </div>
-      <div className="panel-muted rounded-lg p-2.5 text-center font-mono text-sm tracking-widest">
-        TRADE-RX42
-      </div>
-    </div>
-
-    <div className="panel rounded-2xl p-4 space-y-3">
-      <p className="text-[10px] uppercase tracking-widest text-muted-foreground">3-tier network</p>
-      {[
-        { l: "Level 1", p: "1.0%", n: "24 users" },
-        { l: "Level 2", p: "0.5%", n: "108 users" },
-        { l: "Level 3", p: "0.25%", n: "342 users" },
-      ].map((r) => (
-        <div key={r.l} className="flex items-center justify-between text-xs">
-          <div className="flex items-center gap-2">
-            <Users size={11} className="text-muted-foreground" />
-            <span>{r.l}</span>
+      <div className="space-y-2">
+        {trades.map((t, i) => (
+          <div key={i} className="flex items-center justify-between text-[11px]">
+            <div className="flex items-center gap-2">
+              <div className={`w-5 h-5 rounded-full flex items-center justify-center ${t.up ? "bg-success/15" : "bg-destructive/15"}`}>
+                {t.up ? <Up size={10} className="text-success" /> : <ArrowDownRight size={10} className="text-destructive" />}
+              </div>
+              <div>
+                <p className="font-semibold leading-tight">{t.pair}</p>
+                <p className="text-[9px] text-muted-foreground leading-tight">{t.type} · {t.time}</p>
+              </div>
+            </div>
+            <span className={`font-semibold ${t.up ? "text-success" : "text-destructive"}`}>{t.pnl}</span>
           </div>
-          <div className="flex items-center gap-3">
-            <span className="text-muted-foreground">{r.n}</span>
-            <span className="text-primary font-semibold">{r.p}</span>
-          </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   </div>
 );
-
-const screens = [
-  { key: "dash", node: <Dashboard /> },
-  { key: "wallet", node: <WalletScreen /> },
-  { key: "refer", node: <ReferScreen /> },
-];
 
 export default function PhoneMockup() {
   return (
@@ -149,19 +88,8 @@ export default function PhoneMockup() {
       <div className="relative w-full h-full rounded-[2.5rem] panel-strong p-3 shadow-2xl">
         <div className="w-full h-full rounded-[2rem] bg-background overflow-hidden relative editorial-grid">
           <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-primary/15 to-transparent z-0" />
-
           <div className="relative h-full overflow-hidden">
-            <motion.div
-              className="flex flex-col"
-              animate={{ y: ["0%", "-100%", "-200%", "0%"] }}
-              transition={{ duration: 24, times: [0, 0.33, 0.66, 1], repeat: Infinity, ease: "easeInOut", repeatDelay: 1.5 }}
-            >
-              {screens.map((s) => (
-                <div key={s.key} className="w-full shrink-0" style={{ height: 534 }}>
-                  {s.node}
-                </div>
-              ))}
-            </motion.div>
+            <Dashboard />
           </div>
         </div>
       </div>
