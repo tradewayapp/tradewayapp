@@ -41,7 +41,7 @@ export default function DownloadApk() {
 
         if (cancelled) return;
 
-        const blob = new Blob(chunks, { type: "application/vnd.android.package-archive" });
+        const blob = new Blob(chunks as BlobPart[], { type: "application/vnd.android.package-archive" });
         objectUrl = URL.createObjectURL(blob);
 
         const a = document.createElement("a");
