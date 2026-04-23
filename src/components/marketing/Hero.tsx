@@ -11,11 +11,9 @@ const chips = [
 ];
 
 const PlayStoreIcon = ({ size = 18 }: { size?: number }) => (
-  <svg width={size} height={size} viewBox="0 0 512 512" fill="currentColor" aria-hidden="true">
-    <path d="M85 60.5v391c0 13.1 5.5 22.8 14.4 27.9l203.4-223.7L99.4 32.6C90.5 37.7 85 47.4 85 60.5z"/>
-    <path d="M362.1 188.3 99.4 32.6c-3.1-1.8-6.4-2.7-9.7-2.6L271.4 235l90.7-46.7z"/>
-    <path d="M362.1 323.7 271.4 277l-181.7 207c3.3.1 6.6-.8 9.7-2.6l262.7-157.7z"/>
-    <path d="M464.6 234.7 386.1 189l-23.9 13.7-90.8 53.3 90.8 53.3 23.9 13.7 78.5-45.7c20.1-11.7 20.1-31.6 0-43.6z"/>
+  <svg width={size} height={size} viewBox="0 0 512 512" fill="none" stroke="currentColor" strokeWidth="32" strokeLinejoin="round" aria-hidden="true">
+    <path d="M64 40v432c0 14 8 24 20 28 12 4 24 0 34-6l324-188c20-12 20-40 0-52L118 18C108 12 96 8 84 12 72 16 64 26 64 40z"/>
+    <path d="M64 40l280 220L64 472"/>
   </svg>
 );
 
@@ -63,14 +61,16 @@ export default function Hero() {
             transition={{ duration: 0.5, delay: 0.25 }}
             className="mt-8 flex flex-col sm:flex-row gap-3"
           >
-            <Link to="/onboarding">
-              <Button size="lg" className="gradient-signal text-primary-foreground border-0 hover:opacity-90 h-12 px-6 gap-2">
-                <PlayStoreIcon /> Download App
+            <Link to="/onboarding" className="inline-flex">
+              <Button size="lg" className="gradient-signal text-primary-foreground border-0 hover:opacity-90 h-12 px-6 inline-flex items-center justify-center gap-2 w-full sm:w-auto">
+                <PlayStoreIcon size={18} />
+                <span>Download App</span>
               </Button>
             </Link>
-            <Button size="lg" variant="outline" className="h-12 px-6 border-border" asChild>
+            <Button size="lg" variant="outline" className="h-12 px-6 border-border inline-flex items-center justify-center gap-2 w-full sm:w-auto" asChild>
               <a href="#how">
-                <PlayCircle className="mr-1" size={16} /> See how it works
+                <PlayCircle size={18} />
+                <span>See how it works</span>
               </a>
             </Button>
           </motion.div>
