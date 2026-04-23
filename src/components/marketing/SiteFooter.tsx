@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Twitter, Instagram, Linkedin, Youtube } from "lucide-react";
+import Logo from "@/components/Logo";
 
 const cols = [
   {
@@ -44,14 +45,8 @@ export default function SiteFooter() {
       <div className="max-w-6xl mx-auto px-6 py-14">
         <div className="grid grid-cols-2 md:grid-cols-6 gap-10">
           <div className="col-span-2">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-lg gradient-signal flex items-center justify-center">
-                <svg width="16" height="16" viewBox="0 0 40 40" fill="none">
-                  <path d="M9 28L17 12L23 20L31 12" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-                  <path d="M28 12H31V15" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </div>
-              <span className="font-display font-extrabold text-lg">TradeWay</span>
+            <div className="flex items-center mb-4">
+              <Logo size="md" showWordmark />
             </div>
             <p className="text-sm text-muted-foreground max-w-xs leading-relaxed">
               Autonomous forex engine for capital, profit, and referrals — in dollars and rupees.

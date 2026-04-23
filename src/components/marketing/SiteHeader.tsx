@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { APK_DOWNLOAD_URL } from "@/lib/appDownload";
+import Logo from "@/components/Logo";
 
 const links = [
   { label: "Features", href: "/#features" },
@@ -21,14 +22,8 @@ export default function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 backdrop-blur-xl bg-background/75 border-b border-border/60">
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg gradient-signal flex items-center justify-center">
-            <svg width="16" height="16" viewBox="0 0 40 40" fill="none" aria-hidden="true">
-              <path d="M9 28L17 12L23 20L31 12" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-              <path d="M28 12H31V15" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </div>
-          <span className="font-display font-extrabold tracking-tight text-lg">TradeWay</span>
+        <Link to="/" className="flex items-center">
+          <Logo size="sm" showWordmark />
         </Link>
 
         <nav className="hidden lg:flex items-center gap-7">

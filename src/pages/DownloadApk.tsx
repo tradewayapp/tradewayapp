@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Loader2, CheckCircle2, AlertCircle } from "lucide-react";
 import { SUPABASE_APK_URL, APK_FILENAME } from "@/lib/appDownload";
+import Logo from "@/components/Logo";
 
 type Status = "preparing" | "downloading" | "done" | "error";
 
@@ -70,11 +71,8 @@ export default function DownloadApk() {
         <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-[300px] h-[300px] bg-primary/20 blur-3xl rounded-full pointer-events-none" />
 
         <div className="relative">
-          <div className="w-14 h-14 rounded-2xl gradient-signal mx-auto flex items-center justify-center mb-6">
-            <svg width="26" height="26" viewBox="0 0 40 40" fill="none" aria-hidden="true">
-              <path d="M9 28L17 12L23 20L31 12" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-              <path d="M28 12H31V15" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
+          <div className="mx-auto flex items-center justify-center mb-6">
+            <Logo size="lg" />
           </div>
 
           {status !== "done" && status !== "error" && (
