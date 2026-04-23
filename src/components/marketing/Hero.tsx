@@ -43,9 +43,9 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.05 }}
             className="font-display font-extrabold leading-[0.95] text-[2.6rem] sm:text-[3.4rem] lg:text-[4rem] tracking-tight"
           >
-            Profitable AI trading.
+            Welcome to the world of
             <br />
-            <span className="text-signal">You do nothing.</span>
+            <span className="text-signal">AI-based Profitable Trading.</span>
           </motion.h1>
 
           <motion.p
