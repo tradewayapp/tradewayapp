@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Loader2, CheckCircle2, AlertCircle } from "lucide-react";
-import { SUPABASE_APK_URL, APK_FILENAME } from "@/lib/appDownload";
+import { APK_SOURCE_URL, APK_FILENAME } from "@/lib/appDownload";
 import Logo from "@/components/Logo";
 
 type Status = "preparing" | "downloading" | "done" | "error";
@@ -18,7 +18,7 @@ export default function DownloadApk() {
     (async () => {
       try {
         setStatus("downloading");
-        const res = await fetch(SUPABASE_APK_URL);
+        const res = await fetch(APK_SOURCE_URL);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
         const total = Number(res.headers.get("content-length")) || 0;
@@ -128,7 +128,7 @@ export default function DownloadApk() {
                 Something went wrong. Try again or use the direct link below.
               </p>
               <a
-                href={SUPABASE_APK_URL}
+                href={APK_SOURCE_URL}
                 download={APK_FILENAME}
                 className="mt-6 inline-block text-sm text-primary hover:underline"
               >
