@@ -1,26 +1,53 @@
 
 
-## Fix "File wasn't available on site" error
+## Apply New TradeWay Logos
 
-**Root cause:** Marketing buttons use `<a href="/download/tradeway.apk" download="TradeWay.apk">`. The `download` attribute tells the browser to treat that URL as a binary file. Lovable's SPA hosting returns `index.html` for that path (since no real file exists there) — so the browser sees an HTML response where it expected a file and shows **"File wasn't available on site"**. Our React `DownloadApk` page never even gets a chance to mount and trigger the blob download.
+Aapne 3 sizes diye hain — perfect, koi extraction nahi chahiye, sab ready hai.
 
-### Fix
-Remove the `download` attribute from same-origin SPA links. Replace `<a href download>` with React Router `<Link>` (or plain `<a href>` without the `download` attribute) so the browser performs a normal SPA navigation. The `DownloadApk` page then mounts, fetches the APK as a blob, and triggers the actual save dialog (which already sets `download="TradeWay.apk"` on the dynamically created `<a>` — that part works because the `href` is a `blob:` URL, not a route path).
+### Asset placement
+| Source upload | Destination | Used by |
+|---|---|---|
+| `TradeWay-112-X-112.png` | `src/assets/logo-lg.png` | Splash screen, DownloadApk page |
+| `TradeWay--40-X-40.png` | `src/assets/logo-md.png` | Footer, Onboarding |
+| `TradeWay-32-X-32.png` | `src/assets/logo-sm.png` + `public/favicon.png` | Header, browser tab |
 
-### Files to edit
-1. **`src/components/marketing/Hero.tsx`** (line ~64) — change `<a href={APK_DOWNLOAD_URL} download={APK_FILENAME}>` → `<Link to={APK_DOWNLOAD_URL}>`
-2. **`src/components/marketing/SiteHeader.tsx`** (lines ~49 and ~81) — same change for desktop and mobile buttons
-3. **`src/components/marketing/CTABanner.tsx`** (line ~22) — same change
+### Step 1 — Copy assets
+- 3 files into `src/assets/` for React imports (bundled + optimized)
+- 32px copy into `public/favicon.png` for browser tab
+- Delete `public/favicon.ico` so browsers pick up new PNG
 
-Add `import { Link } from "react-router-dom"` where missing. Drop the now-unused `APK_FILENAME` import in those three files (keep it in `DownloadApk.tsx` where it's actually used on the blob anchor).
+### Step 2 — Create `<Logo />` component
+**New file:** `src/components/Logo.tsx`
+- Props: `size?: "sm" | "md" | "lg"` (default `"sm"`), `showWordmark?: boolean`, `className?: string`
+- Picks the right asset for crispness (sm→32, md→40, lg→112)
+- Optionally renders "TradeWay" wordmark next to icon
+- Single source of truth — future logo swaps = edit one file
 
-### What stays the same
-- `src/lib/appDownload.ts` — no changes
-- `src/pages/DownloadApk.tsx` — no changes (already correct: fetches blob, triggers download with proper filename)
-- `src/App.tsx` — route already registered
+### Step 3 — Replace inline SVGs
+| File | Replace with |
+|---|---|
+| `src/components/marketing/SiteHeader.tsx` (desktop + mobile brand) | `<Logo size="sm" showWordmark />` — drops gradient div + SVG |
+| `src/components/marketing/SiteFooter.tsx` | `<Logo size="md" showWordmark />` |
+| `src/pages/Index.tsx` (splash, currently 112×112 white panel) | `<Logo size="lg" />` standalone — remove `panel-strong` container since new logo has its own circular green bg (cleaner, modern) |
+| `src/pages/DownloadApk.tsx` (header SVG) | `<Logo size="lg" />` |
+| `src/pages/Onboarding.tsx` (if brand SVG present) | `<Logo size="md" />` |
 
-### Result
-- Click "Download App" → SPA navigates to `/download/tradeway.apk`
-- Branded "Preparing your download…" screen appears with progress
-- Native save dialog opens with filename **`TradeWay.apk`** — no error, no Supabase domain visible
+### Step 4 — Update `index.html`
+- `<link rel="icon" type="image/png" href="/favicon.png" />` (replace `.ico` reference)
+- Update `<meta property="og:image">` and `<meta name="twitter:image">` to point to `/favicon.png` (or skip OG image update if you want to keep the existing branded share preview — confirm if needed)
+
+### Step 5 — Visual QA
+- `/` splash: green circular logo crisp at 112px
+- Header (1020px viewport): 32px logo + wordmark balanced
+- Footer: 40px logo readable
+- `/download/tradeway.apk`: large logo on prep screen
+- Browser tab favicon refreshes (hard reload may be needed)
+
+### Files touched
+- **New:** `src/components/Logo.tsx`, `src/assets/logo-sm.png`, `src/assets/logo-md.png`, `src/assets/logo-lg.png`, `public/favicon.png`
+- **Edit:** `SiteHeader.tsx`, `SiteFooter.tsx`, `Index.tsx`, `DownloadApk.tsx`, `Onboarding.tsx`, `index.html`
+- **Delete:** `public/favicon.ico`
+
+### Note
+Aapka 112px sabse bada size hai. Splash screen pe 112 perfect hai, lekin agar future mein bigger hero placement chahiye (ya retina displays pe extra crisp), to ek **512×512 master** bhej dena — main use higher-res screens ke liye swap kar dunga. Abhi ke liye ye 3 sizes sufficient hain.
 
