@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { PlayCircle, Shield, Zap, Coins } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import PhoneMockup from "./PhoneMockup";
+import { APK_DOWNLOAD_URL, APK_FILENAME } from "@/lib/appDownload";
 
 const chips = [
   { icon: Coins, label: "XAU/USD focused" },
@@ -61,12 +61,12 @@ export default function Hero() {
             transition={{ duration: 0.5, delay: 0.25 }}
             className="mt-8 flex flex-col sm:flex-row gap-3"
           >
-            <Link to="/onboarding" className="inline-flex">
+            <a href={APK_DOWNLOAD_URL} download={APK_FILENAME} className="inline-flex">
               <Button size="lg" className="gradient-signal text-primary-foreground border-0 hover:opacity-90 h-12 px-6 inline-flex items-center justify-center gap-2 w-full sm:w-auto">
                 <PlayStoreIcon size={18} />
                 <span>Download App</span>
               </Button>
-            </Link>
+            </a>
             <Button size="lg" variant="outline" className="h-12 px-6 border-border inline-flex items-center justify-center gap-2 w-full sm:w-auto" asChild>
               <a href="#how">
                 <PlayCircle size={18} />
