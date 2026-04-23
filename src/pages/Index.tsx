@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import Logo from "@/components/Logo";
 
 export default function Index() {
   const navigate = useNavigate();
@@ -25,12 +26,9 @@ export default function Index() {
             initial={{ opacity: 0, y: 24, scale: 0.94 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.55 }}
-            className="panel-strong w-28 h-28 rounded-[2rem] flex items-center justify-center"
+            className="inline-flex"
           >
-            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
-              <path d="M9 28L17 12L23 20L31 12" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-              <path d="M28 12H31V15" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
+            <Logo size="lg" />
           </motion.div>
 
           <motion.div
