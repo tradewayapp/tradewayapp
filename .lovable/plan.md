@@ -1,63 +1,91 @@
 
-## Switch APK Download Source to GitHub Release
+## Fix APK download failure after GitHub migration
 
-Aapne repo public kar diya aur release publish ho gaya — ab app ka APK download source GitHub Releases par shift karna hai.
+The domain issue is fixed. The current APK problem is caused by the app trying to `fetch()` the GitHub Release APK in JavaScript, then convert it into a Blob. GitHub Release assets often block or break this browser-based fetch flow because of cross-origin redirects/download headers.
 
-### GitHub APK URL to use
+The safe fix is: do not fetch the APK in JavaScript. Let the browser open the GitHub Release asset directly, which is exactly what GitHub Releases are designed for.
 
-```text
-https://github.com/tradewayapp/tradewayapp/releases/latest/download/trade_way.apk
-```
+### What I will change
 
-`/latest/` ka benefit: future mein jab bhi naya APK release publish karoge, app automatically newest release se APK download karega. Code change ki zarurat nahi hogi.
-
-### Implementation
-
-#### 1. Update download source constant
-
-**File:** `src/lib/appDownload.ts`
-
-- Current internal storage URL ko replace karunga.
-- Constant ka naam generic karunga so code future-proof rahe:
-
-```ts
-export const APK_SOURCE_URL =
-  "https://github.com/tradewayapp/tradewayapp/releases/latest/download/trade_way.apk";
-```
-
-- Existing clean user-facing route same rahega:
-
-```ts
-export const APK_DOWNLOAD_URL = "/download/tradeway.apk";
-export const APK_FILENAME = "TradeWay.apk";
-```
-
-#### 2. Update download page imports/usages
+#### 1. Replace browser `fetch()` download logic
 
 **File:** `src/pages/DownloadApk.tsx`
 
-- `SUPABASE_APK_URL` import ko `APK_SOURCE_URL` se replace karunga.
-- `fetch(...)` aur fallback direct link dono GitHub URL use karenge.
-- Progress bar, filename, UI, success/error states same rahenge.
+Current behavior:
 
-#### 3. No user-facing URL change
+```ts
+fetch(APK_SOURCE_URL)
+```
 
-Users ab bhi yahi clean link dekhenge:
+This can fail even when the GitHub APK link itself is valid.
+
+New behavior:
+
+- Show “Starting your download…”
+- Automatically trigger a normal browser download using the GitHub Release URL
+- If automatic download does not start, show a clear manual button:
+  - `Download APK now`
+- Keep the “Back to home” link
+
+This avoids CORS/redirect issues completely.
+
+#### 2. Keep GitHub Releases as the APK source
+
+**File:** `src/lib/appDownload.ts`
+
+Keep this URL:
+
+```ts
+https://github.com/tradewayapp/tradewayapp/releases/latest/download/trade_way.apk
+```
+
+If the release asset filename is different from `trade_way.apk`, I will update only this constant to match the exact uploaded APK asset name.
+
+#### 3. Improve error/fallback UI
+
+Instead of showing “Download failed” immediately, the page will behave like this:
+
+```text
+Starting your download...
+If it doesn't start automatically, tap "Download APK now".
+```
+
+This is better because browsers may block automatic downloads depending on device/browser settings, especially on mobile.
+
+#### 4. Preserve the clean user-facing link
+
+Users will still click:
 
 ```text
 https://tradewayapp.com/download/tradeway.apk
 ```
 
-GitHub URL browser address bar mein normally nahi dikhega, kyunki app background mein APK fetch karke `TradeWay.apk` naam se download start karega.
+That page will then start the GitHub-hosted APK download.
+
+### Why this fixes it
+
+GitHub Release files are reliable for direct browser downloads, but not always reliable for JavaScript `fetch()` because the final APK URL is served through GitHub’s asset CDN with redirects and download headers.
+
+So the correct architecture is:
+
+```text
+User clicks website button
+        ↓
+/download/tradeway.apk opens
+        ↓
+Browser is redirected/downloads from GitHub Release asset
+        ↓
+APK downloads without using Lovable/backend bandwidth
+```
 
 ### Files to edit
 
-- `src/lib/appDownload.ts`
 - `src/pages/DownloadApk.tsx`
+- `src/lib/appDownload.ts` only if the GitHub asset filename needs correction
 
 ### After implementation check
 
-- `/download/tradeway.apk` route open hoga.
-- APK GitHub Release se fetch hoga.
-- Download filename `TradeWay.apk` rahega.
-- Direct fallback link GitHub Release asset par point karega.
+- Open `/download/tradeway.apk`
+- Confirm it no longer shows “Download failed”
+- Confirm the manual download button points to the GitHub Release APK
+- Confirm the public website and custom domain continue working
