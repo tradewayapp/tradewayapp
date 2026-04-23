@@ -9,7 +9,7 @@ const incl = [
   "Zero withdrawal fees",
   "20% platform fee on profits only",
   "Settled daily at 12 AM IST",
-  "Minimum capital ₹125",
+  "Minimum capital $100 / ₹10,000",
 ];
 
 export default function PricingBlock() {

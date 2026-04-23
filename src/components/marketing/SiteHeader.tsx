@@ -46,8 +46,14 @@ export default function SiteHeader() {
 
         <div className="flex items-center gap-2">
           <Link to="/onboarding" className="hidden sm:block">
-            <Button className="gradient-signal text-primary-foreground border-0 hover:opacity-90">
-              Launch App
+            <Button className="gradient-signal text-primary-foreground border-0 hover:opacity-90 gap-2">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M3.6 2.4c-.4.3-.6.8-.6 1.4v16.4c0 .6.2 1.1.6 1.4l9-9.6-9-9.6z" fill="#34A853"/>
+                <path d="M16.6 8.4 5.9 2.2c-.5-.3-1-.3-1.5-.1l8.8 9.4 3.4-3.1z" fill="#EA4335"/>
+                <path d="m16.6 15.6-3.4-3.1-8.8 9.4c.5.2 1 .2 1.5-.1l10.7-6.2z" fill="#FBBC04"/>
+                <path d="m20.4 10.6-3.8-2.2-3.6 3.6 3.6 3.6 3.8-2.2c1.2-.7 1.2-2.1 0-2.8z" fill="#4285F4"/>
+              </svg>
+              Download App
             </Button>
           </Link>
           <button
@@ -74,8 +80,14 @@ export default function SiteHeader() {
               </a>
             ))}
             <Link to="/onboarding" onClick={() => setOpen(false)} className="sm:hidden">
-              <Button className="gradient-signal text-primary-foreground border-0 w-full">
-                Launch App
+              <Button className="gradient-signal text-primary-foreground border-0 w-full gap-2">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M3.6 2.4c-.4.3-.6.8-.6 1.4v16.4c0 .6.2 1.1.6 1.4l9-9.6-9-9.6z" fill="#34A853"/>
+                  <path d="M16.6 8.4 5.9 2.2c-.5-.3-1-.3-1.5-.1l8.8 9.4 3.4-3.1z" fill="#EA4335"/>
+                  <path d="m16.6 15.6-3.4-3.1-8.8 9.4c.5.2 1 .2 1.5-.1l10.7-6.2z" fill="#FBBC04"/>
+                  <path d="m20.4 10.6-3.8-2.2-3.6 3.6 3.6 3.6 3.8-2.2c1.2-.7 1.2-2.1 0-2.8z" fill="#4285F4"/>
+                </svg>
+                Download App
               </Button>
             </Link>
           </div>

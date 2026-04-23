@@ -1,14 +1,23 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, PlayCircle, Shield, Zap, Globe } from "lucide-react";
+import { PlayCircle, Shield, Zap, Coins } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import PhoneMockup from "./PhoneMockup";
 
 const chips = [
-  { icon: Globe, label: "50+ pairs" },
-  { icon: Zap, label: "24/7 AI" },
-  { icon: Shield, label: "100% secure" },
+  { icon: Coins, label: "XAU/USD focused" },
+  { icon: Zap, label: "24/7 AI engine" },
+  { icon: Shield, label: "Hands-free" },
 ];
+
+const PlayStoreIcon = ({ size = 18 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M3.6 2.4c-.4.3-.6.8-.6 1.4v16.4c0 .6.2 1.1.6 1.4l9-9.6-9-9.6z" fill="#34A853"/>
+    <path d="M16.6 8.4 5.9 2.2c-.5-.3-1-.3-1.5-.1l8.8 9.4 3.4-3.1z" fill="#EA4335"/>
+    <path d="m16.6 15.6-3.4-3.1-8.8 9.4c.5.2 1 .2 1.5-.1l10.7-6.2z" fill="#FBBC04"/>
+    <path d="m20.4 10.6-3.8-2.2-3.6 3.6 3.6 3.6 3.8-2.2c1.2-.7 1.2-2.1 0-2.8z" fill="#4285F4"/>
+  </svg>
+);
 
 export default function Hero() {
   return (
@@ -25,7 +34,7 @@ export default function Hero() {
             className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full panel-muted text-[11px] uppercase tracking-[0.22em] text-muted-foreground mb-6"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-success animate-pulse" />
-            Forex AI · Live engine
+            AI Gold Trading · Live engine
           </motion.div>
 
           <motion.h1
@@ -34,9 +43,9 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.05 }}
             className="font-display font-extrabold leading-[0.95] text-[2.6rem] sm:text-[3.4rem] lg:text-[4rem] tracking-tight"
           >
-            Autonomous forex trading,
+            Profitable AI trading.
             <br />
-            in <span className="text-signal">dollars and rupees.</span>
+            <span className="text-signal">You do nothing.</span>
           </motion.h1>
 
           <motion.p
@@ -45,7 +54,7 @@ export default function Hero() {
             transition={{ duration: 0.5, delay: 0.15 }}
             className="mt-6 text-base sm:text-lg text-muted-foreground max-w-xl leading-relaxed"
           >
-            TradeWay runs an autonomous AI engine that trades global forex pairs 24/7, settles profits daily at midnight, and pays you in USD or INR. Start with as little as ₹125.
+            TradeWay is an AI trading platform built around XAU/USD gold pairs. Our autonomous engine analyzes, executes, and manages every position 24/7 — you just deposit and watch profits settle daily in USD or INR. Start with $100 / ₹10,000.
           </motion.p>
 
           <motion.div
@@ -55,8 +64,8 @@ export default function Hero() {
             className="mt-8 flex flex-col sm:flex-row gap-3"
           >
             <Link to="/onboarding">
-              <Button size="lg" className="gradient-signal text-primary-foreground border-0 hover:opacity-90 h-12 px-6">
-                Launch App <ArrowRight className="ml-1" size={16} />
+              <Button size="lg" className="gradient-signal text-primary-foreground border-0 hover:opacity-90 h-12 px-6 gap-2">
+                <PlayStoreIcon /> Download App
               </Button>
             </Link>
             <Button size="lg" variant="outline" className="h-12 px-6 border-border" asChild>

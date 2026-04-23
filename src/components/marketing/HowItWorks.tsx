@@ -2,9 +2,9 @@ import { UserPlus, Wallet, Bot, ArrowDownToLine } from "lucide-react";
 import Reveal from "./Reveal";
 
 const steps = [
-  { icon: UserPlus, title: "Sign up & KYC", desc: "Create an account, verify with Aadhaar front + back. Takes under 2 minutes." },
-  { icon: Wallet, title: "Add capital", desc: "Fund your wallet with as little as ₹125 via UPI, net banking, or USDT." },
-  { icon: Bot, title: "AI trades 24/7", desc: "Our engine takes over — running positions across global forex sessions." },
+  { icon: UserPlus, title: "Sign up & KYC", desc: "Create an account and verify with Aadhaar front + back. Takes under 2 minutes." },
+  { icon: Wallet, title: "Add capital", desc: "Fund your wallet with $100 / ₹10,000 minimum via UPI, net banking, or USDT." },
+  { icon: Bot, title: "AI trades XAU/USD 24/7", desc: "Our engine takes over — entries, exits, and risk management on gold pairs, fully autonomous." },
   { icon: ArrowDownToLine, title: "Withdraw daily", desc: "Profits settle every midnight. Withdraw to bank or wallet anytime." },
 ];
 
