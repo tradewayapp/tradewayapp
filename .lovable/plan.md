@@ -1,53 +1,63 @@
 
+## Switch APK Download Source to GitHub Release
 
-## Apply New TradeWay Logos
+Aapne repo public kar diya aur release publish ho gaya — ab app ka APK download source GitHub Releases par shift karna hai.
 
-Aapne 3 sizes diye hain — perfect, koi extraction nahi chahiye, sab ready hai.
+### GitHub APK URL to use
 
-### Asset placement
-| Source upload | Destination | Used by |
-|---|---|---|
-| `TradeWay-112-X-112.png` | `src/assets/logo-lg.png` | Splash screen, DownloadApk page |
-| `TradeWay--40-X-40.png` | `src/assets/logo-md.png` | Footer, Onboarding |
-| `TradeWay-32-X-32.png` | `src/assets/logo-sm.png` + `public/favicon.png` | Header, browser tab |
+```text
+https://github.com/tradewayapp/tradewayapp/releases/latest/download/trade_way.apk
+```
 
-### Step 1 — Copy assets
-- 3 files into `src/assets/` for React imports (bundled + optimized)
-- 32px copy into `public/favicon.png` for browser tab
-- Delete `public/favicon.ico` so browsers pick up new PNG
+`/latest/` ka benefit: future mein jab bhi naya APK release publish karoge, app automatically newest release se APK download karega. Code change ki zarurat nahi hogi.
 
-### Step 2 — Create `<Logo />` component
-**New file:** `src/components/Logo.tsx`
-- Props: `size?: "sm" | "md" | "lg"` (default `"sm"`), `showWordmark?: boolean`, `className?: string`
-- Picks the right asset for crispness (sm→32, md→40, lg→112)
-- Optionally renders "TradeWay" wordmark next to icon
-- Single source of truth — future logo swaps = edit one file
+### Implementation
 
-### Step 3 — Replace inline SVGs
-| File | Replace with |
-|---|---|
-| `src/components/marketing/SiteHeader.tsx` (desktop + mobile brand) | `<Logo size="sm" showWordmark />` — drops gradient div + SVG |
-| `src/components/marketing/SiteFooter.tsx` | `<Logo size="md" showWordmark />` |
-| `src/pages/Index.tsx` (splash, currently 112×112 white panel) | `<Logo size="lg" />` standalone — remove `panel-strong` container since new logo has its own circular green bg (cleaner, modern) |
-| `src/pages/DownloadApk.tsx` (header SVG) | `<Logo size="lg" />` |
-| `src/pages/Onboarding.tsx` (if brand SVG present) | `<Logo size="md" />` |
+#### 1. Update download source constant
 
-### Step 4 — Update `index.html`
-- `<link rel="icon" type="image/png" href="/favicon.png" />` (replace `.ico` reference)
-- Update `<meta property="og:image">` and `<meta name="twitter:image">` to point to `/favicon.png` (or skip OG image update if you want to keep the existing branded share preview — confirm if needed)
+**File:** `src/lib/appDownload.ts`
 
-### Step 5 — Visual QA
-- `/` splash: green circular logo crisp at 112px
-- Header (1020px viewport): 32px logo + wordmark balanced
-- Footer: 40px logo readable
-- `/download/tradeway.apk`: large logo on prep screen
-- Browser tab favicon refreshes (hard reload may be needed)
+- Current internal storage URL ko replace karunga.
+- Constant ka naam generic karunga so code future-proof rahe:
 
-### Files touched
-- **New:** `src/components/Logo.tsx`, `src/assets/logo-sm.png`, `src/assets/logo-md.png`, `src/assets/logo-lg.png`, `public/favicon.png`
-- **Edit:** `SiteHeader.tsx`, `SiteFooter.tsx`, `Index.tsx`, `DownloadApk.tsx`, `Onboarding.tsx`, `index.html`
-- **Delete:** `public/favicon.ico`
+```ts
+export const APK_SOURCE_URL =
+  "https://github.com/tradewayapp/tradewayapp/releases/latest/download/trade_way.apk";
+```
 
-### Note
-Aapka 112px sabse bada size hai. Splash screen pe 112 perfect hai, lekin agar future mein bigger hero placement chahiye (ya retina displays pe extra crisp), to ek **512×512 master** bhej dena — main use higher-res screens ke liye swap kar dunga. Abhi ke liye ye 3 sizes sufficient hain.
+- Existing clean user-facing route same rahega:
 
+```ts
+export const APK_DOWNLOAD_URL = "/download/tradeway.apk";
+export const APK_FILENAME = "TradeWay.apk";
+```
+
+#### 2. Update download page imports/usages
+
+**File:** `src/pages/DownloadApk.tsx`
+
+- `SUPABASE_APK_URL` import ko `APK_SOURCE_URL` se replace karunga.
+- `fetch(...)` aur fallback direct link dono GitHub URL use karenge.
+- Progress bar, filename, UI, success/error states same rahenge.
+
+#### 3. No user-facing URL change
+
+Users ab bhi yahi clean link dekhenge:
+
+```text
+https://tradewayapp.com/download/tradeway.apk
+```
+
+GitHub URL browser address bar mein normally nahi dikhega, kyunki app background mein APK fetch karke `TradeWay.apk` naam se download start karega.
+
+### Files to edit
+
+- `src/lib/appDownload.ts`
+- `src/pages/DownloadApk.tsx`
+
+### After implementation check
+
+- `/download/tradeway.apk` route open hoga.
+- APK GitHub Release se fetch hoga.
+- Download filename `TradeWay.apk` rahega.
+- Direct fallback link GitHub Release asset par point karega.
