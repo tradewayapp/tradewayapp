@@ -154,7 +154,7 @@ export default function PhoneMockup() {
             <motion.div
               className="flex flex-col"
               animate={{ y: ["0%", "-100%", "-200%", "0%"] }}
-              transition={{ duration: 12, times: [0, 0.33, 0.66, 1], repeat: Infinity, ease: "easeInOut", repeatDelay: 0.5 }}
+              transition={{ duration: 24, times: [0, 0.33, 0.66, 1], repeat: Infinity, ease: "easeInOut", repeatDelay: 1.5 }}
             >
               {screens.map((s) => (
                 <div key={s.key} className="w-full shrink-0" style={{ height: 534 }}>
