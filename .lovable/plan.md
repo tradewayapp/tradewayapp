@@ -1,53 +1,107 @@
 
+Fix the blank screen by addressing the root-level React/provider crash first, then cleaning up the dependency setup that is likely causing it.
 
-# TradeWay — Informative Marketing Website
+## What the issue appears to be
 
-A separate, public-facing marketing site that explains what TradeWay is, how it works, and drives sign-ups into the existing app. It will live at the root (`/`) as a multi-section landing experience, with the existing app flow moving behind a "Launch App" CTA.
+The current error points to `TooltipProvider` crashing before the app can render:
 
-## What you'll get
+- `src/App.tsx` wraps the entire app in Radix `TooltipProvider`
+- the runtime stack shows `TooltipProvider -> useRef -> null`, which is a classic symptom of a broken React runtime / duplicate React instance / stale Vite prebundle mismatch
+- this project currently has both `bun.lock` and `package-lock.json`, plus committed `node_modules/` and `dist/`, which makes stale dependency state much more likely
 
-A single-page (with anchor sections + a couple sub-pages) responsive marketing website using the same TradeWay visual identity (warm dark, gold/amber primary, purple accent, Bricolage Grotesque + Manrope) so it feels like one product family — but laid out for desktop-first reading rather than mobile app screens.
+There is also a second app-wide risk in the current tree:
 
-### Sections
+- `src/components/ui/sonner.tsx` uses `useTheme()` from `next-themes`
+- `src/App.tsx` does not include any `ThemeProvider`
+- even if it is not the first crash, it should be fixed in the same pass to avoid another blank screen immediately after the tooltip issue is resolved
 
-1. **Sticky top navigation** — Logo, links (Features, How it works, Pricing, Referral, FAQ, About), and a gold "Launch App" button that opens the existing onboarding flow.
-2. **Hero** — Big headline ("Autonomous forex trading, in dollars and rupees."), sub-copy, dual CTA (Launch App / Watch demo), animated signal-line accent, floating stats chips (50+ pairs, 24/7 AI, 100% secure), and a mock phone preview of the app dashboard.
-3. **Trust strip** — "Trusted by thousands", small KPIs (capital managed, daily settlements, average uptime).
-4. **Features grid** — 6 cards: AI engine, Dual currency wallet, Daily 12 AM settlement, KYC-secured, 3-tier referrals, Real-time tracking. Each with icon, title, short copy.
-5. **How it works** — 4 numbered steps: Sign up & KYC → Add capital (min ₹125) → AI trades 24/7 → Withdraw profits daily. Visual stepper with connectors.
-6. **Referral program** — Highlighted gold-glass panel explaining L1 = 1%, L2 = 0.5%, L3 = 0.25% with a small calculator-style visual.
-7. **Pricing / Charges** — Transparent block: "Zero subscription. 20% platform fee on profits only." Comparison-style card.
-8. **Security & Compliance** — Aadhaar KYC, encrypted transactions, segregated capital, audit trail.
-9. **Testimonials** — 3 user quote cards with avatar initials and earnings highlight.
-10. **FAQ** — Accordion of 8 common questions (min capital, withdrawal time, KYC docs, fees, refunds, referral payout, supported pairs, support hours).
-11. **Final CTA banner** — Gradient hero panel: "Start trading in under 3 minutes" + Launch App.
-12. **Footer** — Brand blurb, link columns (Product, Company, Legal, Support), socials, copyright, risk disclaimer.
+## Implementation plan
 
-### Sub-pages (lightweight)
+### 1) Remove the root-level crash path
+Update `src/App.tsx` so the whole app is not wrapped in `TooltipProvider`.
 
-- `/about` — Mission, story, team placeholder.
-- `/contact` — Email, support hours, contact form (UI only, no backend yet).
-- Reuses existing `/privacy`, `/terms` pages.
+Why:
+- the blank screen happens before routing and page rendering
+- tooltips do not need to be mounted globally for the entire application to boot
+- this isolates the Radix crash and lets the site render again
 
-### Routing change
+Change:
+- remove the top-level `<TooltipProvider>` around the whole app
+- keep tooltip providers only where tooltip components are actually used
+- the existing local provider inside `src/components/ui/sidebar.tsx` can remain, or be replaced with a safer wrapper after validation
 
-- New `/` → marketing `Home` page.
-- Existing splash moves to `/app` (or "Launch App" button routes straight to `/onboarding`).
-- All existing app routes (`/dashboard`, `/wallet`, etc.) untouched.
+### 2) Make the toast system safe
+Fix `src/components/ui/sonner.tsx` and/or `src/App.tsx` so `Sonner` does not rely on `next-themes` without a provider.
 
-## Technical details
+Preferred fix:
+- add a proper `ThemeProvider` in `src/App.tsx`
 
-- New files under `src/pages/marketing/` (`Home.tsx`, `About.tsx`, `Contact.tsx`) and `src/components/marketing/` (`SiteHeader`, `SiteFooter`, `Hero`, `FeatureGrid`, `HowItWorks`, `ReferralPanel`, `PricingBlock`, `SecuritySection`, `Testimonials`, `FAQSection`, `CTABanner`, `PhoneMockup`).
-- Update `src/App.tsx` routes: `/` → marketing Home; move current `Index` splash to `/app` (or delete if redundant since onboarding already exists).
-- Reuse existing design tokens (`panel`, `panel-strong`, `gradient-signal`, `text-signal`, `signal-line`, `editorial-grid`) plus add a few marketing-specific utilities (container max-width, section padding) in `src/index.css`.
-- Use shadcn `Accordion` for FAQ, `Button` for CTAs, `Card` for feature/testimonial cards.
-- Framer Motion for hero entrance, scroll-reveal on sections (subtle, not heavy).
-- Lucide icons for features.
-- Fully responsive: mobile stack → tablet 2-col → desktop 3-col grids; container `max-w-6xl` centered.
-- No backend, no auth changes — purely informational. Contact form will just show a success toast.
-- SEO: update `index.html` `<title>` and `<meta description>`, add Open Graph tags, set semantic `<main>`, `<section>`, `<header>`, `<footer>` landmarks and proper heading hierarchy (one h1 per page).
+Alternative simpler fix:
+- remove `useTheme()` from `src/components/ui/sonner.tsx`
+- pass a fixed theme like `"dark"` until theming is intentionally added
 
-## Out of scope (for this step)
+Why:
+- current code imports `useTheme` but no provider exists in the app root
+- this can cause another runtime failure after the tooltip problem is removed
 
-- Backend for the contact form, blog/CMS, live market data widgets, multi-language. These can be follow-ups.
+### 3) Normalize the dependency state
+Clean the dependency/runtime setup so Vite is not serving mismatched React bundles.
 
+Files involved:
+- `package.json`
+- `package-lock.json`
+- `bun.lock`
+- local `node_modules`
+- Vite prebundle cache
+
+Required work:
+- choose one package manager for the project and keep only one lockfile
+- delete stale install artifacts and Vite cache
+- reinstall dependencies from the chosen lockfile
+- restart the dev server so React, Radix, and Vite are rebuilt consistently
+
+Why:
+- the `useRef` null error in Radix strongly suggests React dispatcher mismatch rather than an ordinary component bug
+- mixed lockfiles are a common source of duplicate or mismatched dependency graphs
+
+### 4) Keep Vite React resolution explicit
+Review `vite.config.ts` and preserve the current React dedupe strategy.
+
+Current file already includes:
+- `react`
+- `react-dom`
+- `react/jsx-runtime`
+- `react/jsx-dev-runtime`
+
+If the crash persists after reinstall:
+- add explicit `optimizeDeps.include` for `react`, `react-dom`, `@radix-ui/react-tooltip`, and `@tanstack/react-query`
+- verify no alias or linked-package path is pulling a second React copy
+
+### 5) Validate the landing page boot path
+After the runtime fixes, verify the app renders at `/` and that the marketing homepage loads without crashing.
+
+Pages/components to confirm:
+- `src/pages/marketing/Home.tsx`
+- `src/components/marketing/Hero.tsx`
+- `src/components/marketing/SiteHeader.tsx`
+- `src/components/marketing/SiteFooter.tsx`
+
+Expected result:
+- the hero section renders
+- navigation is visible
+- no blank screen
+- no root runtime error in console
+
+## Files likely to change
+
+- `src/App.tsx`
+- `src/components/ui/sonner.tsx`
+- possibly `vite.config.ts`
+- lockfiles/package-manager choice cleanup at project root
+
+## Success criteria
+
+- `/` renders the TradeWay marketing homepage instead of a blank screen
+- no `Cannot read properties of null (reading 'useRef')` from `TooltipProvider`
+- no app-wide theme/provider runtime error from `Sonner`
+- dependency tree is normalized to one package manager and one lockfile
