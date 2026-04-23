@@ -1,6 +1,7 @@
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import Reveal from "./Reveal";
-import { APK_DOWNLOAD_URL, APK_FILENAME } from "@/lib/appDownload";
+import { APK_DOWNLOAD_URL } from "@/lib/appDownload";
 
 export default function CTABanner() {
   return (
@@ -19,7 +20,7 @@ export default function CTABanner() {
               <p className="mt-5 text-muted-foreground max-w-md mx-auto">
                 Verify Aadhaar, fund $100 / ₹10,000, and our XAU/USD engine takes over. First settlement by tomorrow morning.
               </p>
-              <a href={APK_DOWNLOAD_URL} download={APK_FILENAME} className="inline-block mt-8">
+              <Link to={APK_DOWNLOAD_URL} className="inline-block mt-8">
                 <Button size="lg" className="gradient-signal text-primary-foreground border-0 hover:opacity-90 h-12 px-7 inline-flex items-center justify-center gap-2">
                   <svg width="18" height="18" viewBox="0 0 512 512" fill="none" stroke="currentColor" strokeWidth="32" strokeLinejoin="round" aria-hidden="true">
                     <path d="M64 40v432c0 14 8 24 20 28 12 4 24 0 34-6l324-188c20-12 20-40 0-52L118 18C108 12 96 8 84 12 72 16 64 26 64 40z"/>
@@ -27,7 +28,7 @@ export default function CTABanner() {
                   </svg>
                   <span>Download App</span>
                 </Button>
-              </a>
+              </Link>
               <div className="mt-5 h-[3px] w-32 mx-auto rounded-full signal-line animate-pulseLine" />
             </div>
           </div>
