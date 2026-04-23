@@ -61,14 +61,16 @@ export default function Hero() {
             transition={{ duration: 0.5, delay: 0.25 }}
             className="mt-8 flex flex-col sm:flex-row gap-3"
           >
-            <Link to="/onboarding">
-              <Button size="lg" className="gradient-signal text-primary-foreground border-0 hover:opacity-90 h-12 px-6 gap-2">
-                <PlayStoreIcon /> Download App
+            <Link to="/onboarding" className="inline-flex">
+              <Button size="lg" className="gradient-signal text-primary-foreground border-0 hover:opacity-90 h-12 px-6 inline-flex items-center justify-center gap-2 w-full sm:w-auto">
+                <PlayStoreIcon size={18} />
+                <span>Download App</span>
               </Button>
             </Link>
-            <Button size="lg" variant="outline" className="h-12 px-6 border-border" asChild>
+            <Button size="lg" variant="outline" className="h-12 px-6 border-border inline-flex items-center justify-center gap-2 w-full sm:w-auto" asChild>
               <a href="#how">
-                <PlayCircle className="mr-1" size={16} /> See how it works
+                <PlayCircle size={18} />
+                <span>See how it works</span>
               </a>
             </Button>
           </motion.div>
