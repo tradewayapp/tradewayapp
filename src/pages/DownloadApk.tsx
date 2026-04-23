@@ -1,67 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Loader2, CheckCircle2, AlertCircle } from "lucide-react";
+import { Download, Loader2 } from "lucide-react";
 import { APK_SOURCE_URL, APK_FILENAME } from "@/lib/appDownload";
 import Logo from "@/components/Logo";
 
-type Status = "preparing" | "downloading" | "done" | "error";
-
 export default function DownloadApk() {
-  const [status, setStatus] = useState<Status>("preparing");
-  const [progress, setProgress] = useState(0);
-  const [sizeMb, setSizeMb] = useState<number | null>(null);
-
   useEffect(() => {
-    let cancelled = false;
-    let objectUrl: string | null = null;
+    const timer = window.setTimeout(() => {
+      window.location.href = APK_SOURCE_URL;
+    }, 600);
 
-    (async () => {
-      try {
-        setStatus("downloading");
-        const res = await fetch(APK_SOURCE_URL);
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-
-        const total = Number(res.headers.get("content-length")) || 0;
-        if (total) setSizeMb(Math.round(total / (1024 * 1024)));
-
-        const reader = res.body?.getReader();
-        const chunks: Uint8Array[] = [];
-        let received = 0;
-
-        if (reader) {
-          while (true) {
-            const { done, value } = await reader.read();
-            if (done) break;
-            if (value) {
-              chunks.push(value);
-              received += value.length;
-              if (total) setProgress(Math.round((received / total) * 100));
-            }
-          }
-        }
-
-        if (cancelled) return;
-
-        const blob = new Blob(chunks as BlobPart[], { type: "application/vnd.android.package-archive" });
-        objectUrl = URL.createObjectURL(blob);
-
-        const a = document.createElement("a");
-        a.href = objectUrl;
-        a.download = APK_FILENAME;
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-
-        setStatus("done");
-      } catch (e) {
-        if (!cancelled) setStatus("error");
-      }
-    })();
-
-    return () => {
-      cancelled = true;
-      if (objectUrl) URL.revokeObjectURL(objectUrl);
-    };
+    return () => window.clearTimeout(timer);
   }, []);
 
   return (
@@ -75,67 +24,36 @@ export default function DownloadApk() {
             <Logo size="lg" />
           </div>
 
-          {status !== "done" && status !== "error" && (
-            <>
-              <h1 className="font-display font-extrabold text-2xl tracking-tight">
-                Preparing your download…
-              </h1>
-              <p className="mt-2 text-muted-foreground text-sm">
-                TradeWay APK{sizeMb ? ` · ${sizeMb} MB` : ""}
-              </p>
-              <div className="mt-6 flex items-center justify-center gap-2 text-primary">
-                <Loader2 className="animate-spin" size={18} />
-                <span className="text-sm tabular-nums">
-                  {progress > 0 ? `${progress}%` : "Connecting…"}
-                </span>
-              </div>
-              {progress > 0 && (
-                <div className="mt-4 h-1.5 w-full rounded-full bg-muted overflow-hidden">
-                  <div
-                    className="h-full gradient-signal transition-all"
-                    style={{ width: `${progress}%` }}
-                  />
-                </div>
-              )}
-            </>
-          )}
+          <div className="mx-auto mb-6 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+            <Loader2 className="animate-spin" size={22} />
+          </div>
 
-          {status === "done" && (
-            <>
-              <CheckCircle2 className="mx-auto text-success" size={32} />
-              <h1 className="mt-3 font-display font-extrabold text-2xl tracking-tight">
-                Download started
-              </h1>
-              <p className="mt-2 text-muted-foreground text-sm">
-                Check your downloads folder for <span className="text-foreground font-medium">{APK_FILENAME}</span>.
-              </p>
-              <Link
-                to="/"
-                className="mt-6 inline-block text-sm text-primary hover:underline"
-              >
-                ← Back to home
-              </Link>
-            </>
-          )}
+          <h1 className="font-display font-extrabold text-2xl tracking-tight">
+            Starting your download…
+          </h1>
+          <p className="mt-2 text-muted-foreground text-sm">
+            If it doesn&apos;t start automatically, tap the button below.
+          </p>
 
-          {status === "error" && (
-            <>
-              <AlertCircle className="mx-auto text-destructive" size={32} />
-              <h1 className="mt-3 font-display font-extrabold text-2xl tracking-tight">
-                Download failed
-              </h1>
-              <p className="mt-2 text-muted-foreground text-sm">
-                Something went wrong. Try again or use the direct link below.
-              </p>
-              <a
-                href={APK_SOURCE_URL}
-                download={APK_FILENAME}
-                className="mt-6 inline-block text-sm text-primary hover:underline"
-              >
-                Direct download link
-              </a>
-            </>
-          )}
+          <a
+            href={APK_SOURCE_URL}
+            download={APK_FILENAME}
+            className="mt-6 inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-bold text-primary-foreground shadow-gold transition hover:opacity-90"
+          >
+            <Download size={17} />
+            Download APK now
+          </a>
+
+          <p className="mt-3 text-xs text-muted-foreground">
+            File: <span className="text-foreground font-medium">{APK_FILENAME}</span>
+          </p>
+
+          <Link
+            to="/"
+            className="mt-6 inline-block text-sm text-primary hover:underline"
+          >
+            ← Back to home
+          </Link>
         </div>
       </div>
     </main>
