@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { APK_DOWNLOAD_URL, APK_FILENAME } from "@/lib/appDownload";
+import { APK_DOWNLOAD_URL } from "@/lib/appDownload";
 
 const links = [
   { label: "Features", href: "/#features" },
@@ -46,7 +46,7 @@ export default function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <a href={APK_DOWNLOAD_URL} download={APK_FILENAME} className="hidden sm:block">
+          <Link to={APK_DOWNLOAD_URL} className="hidden sm:block">
             <Button className="gradient-signal text-primary-foreground border-0 hover:opacity-90 inline-flex items-center justify-center gap-2">
               <svg width="16" height="16" viewBox="0 0 512 512" fill="none" stroke="currentColor" strokeWidth="32" strokeLinejoin="round" aria-hidden="true">
                 <path d="M64 40v432c0 14 8 24 20 28 12 4 24 0 34-6l324-188c20-12 20-40 0-52L118 18C108 12 96 8 84 12 72 16 64 26 64 40z"/>
@@ -54,7 +54,7 @@ export default function SiteHeader() {
               </svg>
               <span>Download App</span>
             </Button>
-          </a>
+          </Link>
           <button
             className="lg:hidden p-2 rounded-md text-foreground"
             onClick={() => setOpen(!open)}
@@ -78,7 +78,7 @@ export default function SiteHeader() {
                 {l.label}
               </a>
             ))}
-            <a href={APK_DOWNLOAD_URL} download={APK_FILENAME} onClick={() => setOpen(false)} className="sm:hidden">
+            <Link to={APK_DOWNLOAD_URL} onClick={() => setOpen(false)} className="sm:hidden">
               <Button className="gradient-signal text-primary-foreground border-0 w-full inline-flex items-center justify-center gap-2">
                 <svg width="16" height="16" viewBox="0 0 512 512" fill="none" stroke="currentColor" strokeWidth="32" strokeLinejoin="round" aria-hidden="true">
                   <path d="M64 40v432c0 14 8 24 20 28 12 4 24 0 34-6l324-188c20-12 20-40 0-52L118 18C108 12 96 8 84 12 72 16 64 26 64 40z"/>
@@ -86,7 +86,7 @@ export default function SiteHeader() {
                 </svg>
                 <span>Download App</span>
               </Button>
-            </a>
+            </Link>
           </div>
         </div>
       )}
