@@ -23,6 +23,7 @@ import AIGuidePage from "./pages/AIGuidePage";
 import PrivacyPage from "./pages/PrivacyPage";
 import TermsPage from "./pages/TermsPage";
 import NotificationsPage from "./pages/NotificationsPage";
+import DownloadApk from "./pages/DownloadApk";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -54,6 +55,7 @@ const App = () => (
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="/terms" element={<TermsPage />} />
           <Route path="/notifications" element={<NotificationsPage />} />
+          <Route path="/download/tradeway.apk" element={<DownloadApk />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
