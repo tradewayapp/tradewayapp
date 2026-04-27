@@ -67,6 +67,7 @@ const App = () => (
           <Route path="/terms" element={<TermsPage />} />
           <Route path="/notifications" element={<NotificationsPage />} />
           <Route path="/download/tradeway.apk" element={<DownloadApk />} />
+          <Route path="/delete-account" element={<DeleteAccount />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       )}
