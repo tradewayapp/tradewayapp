@@ -1,51 +1,25 @@
-## Goal
-Pure website pe (har route pe) ek **Coming Soon** page dikhana, jab tak launch na ho. Launch ke time aap bolenge, main 1-line code change se asli site wapas la dunga.
+# Puri Website Live Karna
 
-## Approach
+Abhi `COMING_SOON = true` hai, isliye sirf Coming Soon page aur `/delete-account` accessible hai. Live karne ke liye is flag ko `false` kar denge — sari original routes (Home, Login, Dashboard, Wallet, Privacy, Terms, KYC, etc.) wapas chalu ho jayengi.
 
-### 1. Naya page banayenge
-**File:** `src/pages/ComingSoon.tsx`
+## Changes
 
-Content (minimal, brand consistent):
-- TradeWay logo (existing `<Logo />` component, large size)
-- Headline: **"Launching Soon"**
-- Tagline: *"AI-powered XAU/USD gold trading on autopilot. Going live very soon."*
-- Subtle animated signal line (existing `signal-line` / `pulseLine` — same vibe as `Index.tsx` splash)
-- Footer: `© TradeWay`
-- Dark charcoal bg + gold/amber accents (existing design tokens — no new colors)
-- Mobile-first responsive
+**`src/App.tsx`**
+- `const COMING_SOON = true;` → `const COMING_SOON = false;`
+- Bas yehi ek line change. Coming Soon page code as-is rahega taaki future me dobara enable kar sako agar zarurat pade.
 
-### 2. Full takeover via single flag
-**File:** `src/App.tsx`
+## Result
 
-Top pe ek constant:
-```ts
-const COMING_SOON = true;
-```
+Live hone ke baad ye sab routes accessible ho jayengi:
+- `/` — Marketing Home
+- `/about`, `/contact`
+- `/login`, `/otp`, `/onboarding`, `/profile-setup`
+- `/dashboard`, `/wallet`, `/refer`, `/more`, `/kyc`, `/notifications`
+- `/help-center`, `/faq`, `/support`, `/learn`, `/ai-guide`
+- `/privacy`, `/terms` (Play Store ke liye ab public)
+- `/delete-account` (already public, kaam karta rahega)
+- `/download/tradeway.apk`
 
-Agar `true` ho, toh `<Routes>` ke andar sirf:
-```tsx
-<Route path="*" element={<ComingSoon />} />
-```
+## Important — Publish Karna Mat Bhulna
 
-Matlab `/`, `/login`, `/dashboard`, `/download/tradeway.apk` — **har URL** pe sirf Coming Soon dikhega.
-
-Launch ke time: `COMING_SOON = false` kar dunga, sari existing routes wapas chalu — koi data/code lose nahi hoga.
-
-> Note: Aapne "toggle" question skip kiya, main safest default le raha hu — **simple boolean flag**. Baad mein secret preview URL chahiye toh bol dena.
-
-### 3. SEO / meta
-`ComingSoon.tsx` ke andar `useEffect` se:
-- `document.title = "TradeWay — Launching Soon"`
-- meta description: "TradeWay AI forex trading platform launching soon."
-
-### 4. APK download note
-Full takeover ke kaaran `/download/tradeway.apk` bhi Coming Soon dikhayega. Agar APK abhi bhi public rakhna ho (testing ke liye), bata dena — exception bana dunga.
-
-## Files
-- **Create:** `src/pages/ComingSoon.tsx`
-- **Edit:** `src/App.tsx` (flag + conditional routes)
-
-## After implementation
-- Har URL pe Coming Soon page
-- Launch ke time bas `COMING_SOON = false` — done
+Ye sirf code change hai. Live hone ke liye **Publish button** dabana padega (top-right desktop / bottom-right '...' menu mobile → Publish → Update). Publish kiye bina change `tradewayapp.com` par live nahi jayega.
