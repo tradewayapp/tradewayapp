@@ -1,91 +1,51 @@
+## Goal
+Pure website pe (har route pe) ek **Coming Soon** page dikhana, jab tak launch na ho. Launch ke time aap bolenge, main 1-line code change se asli site wapas la dunga.
 
-## Fix APK download failure after GitHub migration
+## Approach
 
-The domain issue is fixed. The current APK problem is caused by the app trying to `fetch()` the GitHub Release APK in JavaScript, then convert it into a Blob. GitHub Release assets often block or break this browser-based fetch flow because of cross-origin redirects/download headers.
+### 1. Naya page banayenge
+**File:** `src/pages/ComingSoon.tsx`
 
-The safe fix is: do not fetch the APK in JavaScript. Let the browser open the GitHub Release asset directly, which is exactly what GitHub Releases are designed for.
+Content (minimal, brand consistent):
+- TradeWay logo (existing `<Logo />` component, large size)
+- Headline: **"Launching Soon"**
+- Tagline: *"AI-powered XAU/USD gold trading on autopilot. Going live very soon."*
+- Subtle animated signal line (existing `signal-line` / `pulseLine` — same vibe as `Index.tsx` splash)
+- Footer: `© TradeWay`
+- Dark charcoal bg + gold/amber accents (existing design tokens — no new colors)
+- Mobile-first responsive
 
-### What I will change
+### 2. Full takeover via single flag
+**File:** `src/App.tsx`
 
-#### 1. Replace browser `fetch()` download logic
-
-**File:** `src/pages/DownloadApk.tsx`
-
-Current behavior:
-
+Top pe ek constant:
 ```ts
-fetch(APK_SOURCE_URL)
+const COMING_SOON = true;
 ```
 
-This can fail even when the GitHub APK link itself is valid.
-
-New behavior:
-
-- Show “Starting your download…”
-- Automatically trigger a normal browser download using the GitHub Release URL
-- If automatic download does not start, show a clear manual button:
-  - `Download APK now`
-- Keep the “Back to home” link
-
-This avoids CORS/redirect issues completely.
-
-#### 2. Keep GitHub Releases as the APK source
-
-**File:** `src/lib/appDownload.ts`
-
-Keep this URL:
-
-```ts
-https://github.com/tradewayapp/tradewayapp/releases/latest/download/trade_way.apk
+Agar `true` ho, toh `<Routes>` ke andar sirf:
+```tsx
+<Route path="*" element={<ComingSoon />} />
 ```
 
-If the release asset filename is different from `trade_way.apk`, I will update only this constant to match the exact uploaded APK asset name.
+Matlab `/`, `/login`, `/dashboard`, `/download/tradeway.apk` — **har URL** pe sirf Coming Soon dikhega.
 
-#### 3. Improve error/fallback UI
+Launch ke time: `COMING_SOON = false` kar dunga, sari existing routes wapas chalu — koi data/code lose nahi hoga.
 
-Instead of showing “Download failed” immediately, the page will behave like this:
+> Note: Aapne "toggle" question skip kiya, main safest default le raha hu — **simple boolean flag**. Baad mein secret preview URL chahiye toh bol dena.
 
-```text
-Starting your download...
-If it doesn't start automatically, tap "Download APK now".
-```
+### 3. SEO / meta
+`ComingSoon.tsx` ke andar `useEffect` se:
+- `document.title = "TradeWay — Launching Soon"`
+- meta description: "TradeWay AI forex trading platform launching soon."
 
-This is better because browsers may block automatic downloads depending on device/browser settings, especially on mobile.
+### 4. APK download note
+Full takeover ke kaaran `/download/tradeway.apk` bhi Coming Soon dikhayega. Agar APK abhi bhi public rakhna ho (testing ke liye), bata dena — exception bana dunga.
 
-#### 4. Preserve the clean user-facing link
+## Files
+- **Create:** `src/pages/ComingSoon.tsx`
+- **Edit:** `src/App.tsx` (flag + conditional routes)
 
-Users will still click:
-
-```text
-https://tradewayapp.com/download/tradeway.apk
-```
-
-That page will then start the GitHub-hosted APK download.
-
-### Why this fixes it
-
-GitHub Release files are reliable for direct browser downloads, but not always reliable for JavaScript `fetch()` because the final APK URL is served through GitHub’s asset CDN with redirects and download headers.
-
-So the correct architecture is:
-
-```text
-User clicks website button
-        ↓
-/download/tradeway.apk opens
-        ↓
-Browser is redirected/downloads from GitHub Release asset
-        ↓
-APK downloads without using Lovable/backend bandwidth
-```
-
-### Files to edit
-
-- `src/pages/DownloadApk.tsx`
-- `src/lib/appDownload.ts` only if the GitHub asset filename needs correction
-
-### After implementation check
-
-- Open `/download/tradeway.apk`
-- Confirm it no longer shows “Download failed”
-- Confirm the manual download button points to the GitHub Release APK
-- Confirm the public website and custom domain continue working
+## After implementation
+- Har URL pe Coming Soon page
+- Launch ke time bas `COMING_SOON = false` — done
