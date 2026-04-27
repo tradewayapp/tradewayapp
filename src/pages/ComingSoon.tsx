@@ -31,10 +31,21 @@ export default function ComingSoon() {
           </motion.div>
 
           <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1, duration: 0.45 }}
+            className="mt-5"
+          >
+            <h2 className="font-display font-extrabold tracking-tight text-3xl sm:text-4xl">
+              TradeWay
+            </h2>
+          </motion.div>
+
+          <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.15, duration: 0.5 }}
-            className="mt-8"
+            transition={{ delay: 0.2, duration: 0.5 }}
+            className="mt-6"
           >
             <p className="text-[11px] uppercase tracking-[0.32em] text-primary font-semibold">
               Coming Soon
