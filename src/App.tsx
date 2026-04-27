@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import ComingSoon from "./pages/ComingSoon";
+import DeleteAccount from "./pages/DeleteAccount";
 import Index from "./pages/Index";
 import MarketingHome from "./pages/marketing/Home";
 import About from "./pages/marketing/About";
@@ -39,6 +40,7 @@ const App = () => (
     <BrowserRouter>
       {COMING_SOON ? (
         <Routes>
+          <Route path="/delete-account" element={<DeleteAccount />} />
           <Route path="*" element={<ComingSoon />} />
         </Routes>
       ) : (
@@ -65,6 +67,7 @@ const App = () => (
           <Route path="/terms" element={<TermsPage />} />
           <Route path="/notifications" element={<NotificationsPage />} />
           <Route path="/download/tradeway.apk" element={<DownloadApk />} />
+          <Route path="/delete-account" element={<DeleteAccount />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       )}
