@@ -31,7 +31,7 @@ import NotFound from "./pages/NotFound";
 const queryClient = new QueryClient();
 
 // Toggle: launch ke time ise `false` kar dena, sari original routes wapas chalu ho jayengi.
-const COMING_SOON = true;
+const COMING_SOON = false;
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
