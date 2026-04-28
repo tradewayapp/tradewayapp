@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Mail, Shield, Clock, Database } from "lucide-react";
 import Logo from "@/components/Logo";
 
-const SUPPORT_EMAIL = "support@tradewayapp.com";
+const SUPPORT_EMAIL = "tradewayapp@gmail.com";
 
 export default function DeleteAccount() {
   useEffect(() => {
