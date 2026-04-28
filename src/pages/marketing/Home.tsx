@@ -9,6 +9,7 @@ import PricingBlock from "@/components/marketing/PricingBlock";
 import SecuritySection from "@/components/marketing/SecuritySection";
 import FAQSection from "@/components/marketing/FAQSection";
 import CTABanner from "@/components/marketing/CTABanner";
+import StickyDownloadCTA from "@/components/marketing/StickyDownloadCTA";
 
 export default function MarketingHome() {
   useEffect(() => {
@@ -31,6 +32,7 @@ export default function MarketingHome() {
         <CTABanner />
       </main>
       <SiteFooter />
+      <StickyDownloadCTA />
     </div>
   );
 }
