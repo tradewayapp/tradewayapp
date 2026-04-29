@@ -53,7 +53,7 @@ export default function SiteFooter() {
               <Logo size="md" showWordmark />
             </div>
             <p className="text-sm text-muted-foreground max-w-xs leading-relaxed">
-              Autonomous AI engine for XAU/USD gold trading — deposit once, profits settle daily in dollars or rupees.
+              Autonomous AI engine for the global forex market — deposit once, profits settle daily in dollars or rupees.
             </p>
             <div className="mt-5 inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass-gold text-[11px]">
               <span className="w-1.5 h-1.5 rounded-full bg-success" style={{ animation: "ticker-blink 1.4s ease-in-out infinite" }} />

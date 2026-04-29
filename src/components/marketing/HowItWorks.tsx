@@ -4,7 +4,7 @@ import Reveal from "./Reveal";
 const steps = [
   { icon: UserPlus, title: "Sign up & KYC", desc: "Create an account and verify with Aadhaar (front + back). Under 2 minutes.", tag: "2 min" },
   { icon: Wallet, title: "Add capital", desc: "Fund $100 / ₹10,000 minimum via UPI, net banking, or USDT.", tag: "₹10K min" },
-  { icon: Bot, title: "AI trades XAU/USD", desc: "Engine handles entries, exits, and risk on gold pairs — fully autonomous.", tag: "24/7" },
+  { icon: Bot, title: "AI trades forex", desc: "Engine handles entries, exits and risk across major FX pairs — fully autonomous.", tag: "24/5" },
   { icon: ArrowDownToLine, title: "Withdraw daily", desc: "Profits settle every midnight. Withdraw to bank or wallet anytime.", tag: "Daily" },
 ];
 
