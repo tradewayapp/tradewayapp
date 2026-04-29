@@ -37,8 +37,8 @@ export default function FeatureGrid() {
                 {/* Mini chart */}
                 <div className="mt-7 panel-muted rounded-2xl p-4">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-[10px] uppercase tracking-widest text-muted-foreground">XAU/USD · 1m</span>
-                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-success/15 text-success font-bold">+1.84%</span>
+                    <span className="text-[10px] uppercase tracking-widest text-muted-foreground">XAU/USD · 1M</span>
+                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-success/15 text-success font-bold">+14.2%</span>
                   </div>
                   <svg viewBox="0 0 400 90" className="w-full h-20">
                     <defs>
