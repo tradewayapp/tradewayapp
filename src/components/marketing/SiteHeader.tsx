@@ -4,6 +4,7 @@ import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { APK_DOWNLOAD_URL } from "@/lib/appDownload";
 import Logo from "@/components/Logo";
+import ThemeToggle from "./ThemeToggle";
 
 const links = [
   { label: "Features", href: "/#features" },
@@ -63,6 +64,7 @@ export default function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-2">
+          <ThemeToggle />
           <Link to={APK_DOWNLOAD_URL} className="hidden sm:block">
             <Button className="gradient-signal text-primary-foreground border-0 hover:opacity-90 inline-flex items-center justify-center gap-2 shadow-gold h-9 px-4 font-semibold text-sm">
               <svg width="14" height="14" viewBox="0 0 512 512" fill="none" stroke="currentColor" strokeWidth="32" strokeLinejoin="round" aria-hidden="true">

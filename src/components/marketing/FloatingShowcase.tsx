@@ -43,7 +43,7 @@ export default function FloatingShowcase() {
               One screen. <span className="text-gold">Infinite focus.</span>
             </h2>
             <p className="mt-5 text-muted-foreground">
-              The AI watches every tick on XAU/USD so you don't have to.
+              The AI watches every tick across major forex pairs so you don't have to.
             </p>
           </div>
         </Reveal>

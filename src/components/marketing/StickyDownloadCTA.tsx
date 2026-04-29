@@ -47,7 +47,7 @@ export default function StickyDownloadCTA() {
                 Get the <span className="text-gold">TradeWay</span> App
               </p>
               <p className="text-xs text-muted-foreground truncate">
-                AI-powered XAU/USD trading · Android APK
+                AI-powered forex trading · Android APK
               </p>
             </div>
 

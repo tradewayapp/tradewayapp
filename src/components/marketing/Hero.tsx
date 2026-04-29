@@ -33,7 +33,7 @@ export default function Hero() {
             <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full gradient-signal text-primary-foreground font-bold uppercase tracking-wider text-[9px]">
               <Sparkles size={10} /> New
             </span>
-            <span className="text-muted-foreground">Autonomous gold engine · v3.2 live</span>
+            <span className="text-muted-foreground">AI forex engine · v3.2 · 24/5 markets</span>
             <ArrowUpRight size={12} className="text-primary" />
           </div>
         </motion.div>
@@ -46,9 +46,9 @@ export default function Hero() {
             transition={{ duration: 0.7, delay: 0.05 }}
             className="font-display font-extrabold leading-[0.95] tracking-tight text-[2.4rem] sm:text-[3.4rem] lg:text-[4.6rem]"
           >
-            Gold trades itself.
+            AI trades forex.
             <br />
-            <span className="text-gold">You just collect.</span>
+            <span className="text-gold">You earn the profits.</span>
           </motion.h1>
 
           <motion.p
@@ -57,8 +57,8 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.18 }}
             className="mt-6 text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed"
           >
-            TradeWay's AI engine runs XAU/USD 24/7 — entries, exits, risk, all autonomous.
-            You deposit once, profits settle daily in <span className="text-foreground font-medium">USD or INR</span>.
+            TradeWay's AI engine trades the live forex market — EUR/USD, GBP/USD, USD/JPY, gold and more — 24/5.
+            Entries, exits, risk: fully autonomous. Profits settle daily in <span className="text-foreground font-medium">USD or INR</span>.
           </motion.p>
 
           {/* CTAs */}
