@@ -3,7 +3,6 @@ import SiteHeader from "@/components/marketing/SiteHeader";
 import SiteFooter from "@/components/marketing/SiteFooter";
 import Hero from "@/components/marketing/Hero";
 import FloatingShowcase from "@/components/marketing/FloatingShowcase";
-import LivePerformance from "@/components/marketing/LivePerformance";
 import FeatureGrid from "@/components/marketing/FeatureGrid";
 import HowItWorks from "@/components/marketing/HowItWorks";
 import ReferralPanel from "@/components/marketing/ReferralPanel";
@@ -26,7 +25,6 @@ export default function MarketingHome() {
       <main>
         <Hero />
         <FloatingShowcase />
-        <LivePerformance />
         <FeatureGrid />
         <HowItWorks />
         <ReferralPanel />

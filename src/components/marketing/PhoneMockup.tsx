@@ -1,82 +1,97 @@
 import { motion } from "framer-motion";
-import { TrendingUp, ArrowUpRight, Wallet, ArrowDownRight } from "lucide-react";
-
-const trades = [
-  { pair: "XAU/USD", type: "BUY", pnl: "+$142.30", up: true, time: "10:42" },
-  { pair: "XAU/USD", type: "SELL", pnl: "+$86.10", up: true, time: "09:18" },
-  { pair: "XAG/USD", type: "BUY", pnl: "+$54.40", up: true, time: "08:05" },
-  { pair: "XAU/USD", type: "BUY", pnl: "-$22.80", up: false, time: "Yesterday" },
-  { pair: "XAU/USD", type: "SELL", pnl: "+$118.60", up: true, time: "Yesterday" },
-];
+import { Activity, ArrowRight, LayoutGrid, Wallet, Send, Menu } from "lucide-react";
 
 const Dashboard = () => (
-  <div className="relative p-5 space-y-4 h-full">
-    <div className="flex items-center justify-between">
+  <div className="relative h-full flex flex-col">
+    {/* Status bar */}
+    <div className="flex items-center justify-between px-4 pt-3 pb-1 text-[9px] text-foreground/80 font-semibold">
+      <span>11:00</span>
+      <span className="tabular-nums">●●● 5G</span>
+    </div>
+
+    {/* Header */}
+    <div className="px-4 pt-2 pb-3 flex items-start justify-between">
       <div>
-        <p className="text-[10px] uppercase tracking-widest text-muted-foreground">Portfolio</p>
-        <p className="font-display font-extrabold text-2xl mt-1 text-gold">$12,847.20</p>
-        <p className="text-[11px] text-success flex items-center gap-1 mt-0.5">
-          <ArrowUpRight size={12} /> +4.82% today
-        </p>
+        <p className="font-display font-extrabold text-lg leading-tight">TradeWay</p>
+        <p className="text-[10px] text-muted-foreground leading-tight">Your trading partner</p>
       </div>
-      <div className="w-10 h-10 rounded-full gradient-signal flex items-center justify-center shadow-gold">
-        <Wallet size={16} className="text-primary-foreground" />
+      <div className="flex items-center gap-1.5">
+        {[1, 2, 3, 4].map((i) => (
+          <div key={i} className="w-6 h-6 rounded-full bg-secondary/80 border border-border/60" />
+        ))}
       </div>
     </div>
 
-    <div className="glass-gold rounded-2xl p-4">
-      <div className="flex items-center justify-between mb-2">
-        <p className="text-[10px] uppercase tracking-widest text-muted-foreground">XAU/USD Signal</p>
-        <span className="text-[9px] px-2 py-0.5 rounded-full bg-success/15 text-success font-bold">LIVE</span>
-      </div>
-      <svg viewBox="0 0 200 60" className="w-full h-14">
-        <defs>
-          <linearGradient id="pmf" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.4" />
-            <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0" />
-          </linearGradient>
-        </defs>
-        <path d="M0 45 L20 38 L40 42 L60 28 L80 32 L100 18 L120 24 L140 12 L160 18 L180 8 L200 14"
-          stroke="hsl(var(--primary))" strokeWidth="2" fill="none" strokeLinecap="round" />
-        <path d="M0 45 L20 38 L40 42 L60 28 L80 32 L100 18 L120 24 L140 12 L160 18 L180 8 L200 14 L200 60 L0 60 Z"
-          fill="url(#pmf)" />
-        <circle cx="200" cy="14" r="3" fill="hsl(var(--primary))" />
-      </svg>
-    </div>
-
-    <div className="grid grid-cols-2 gap-2.5">
-      {[
-        { pair: "XAU/USD", val: "+1.84%" },
-        { pair: "XAG/USD", val: "+1.12%" },
-      ].map((p) => (
-        <div key={p.pair} className="panel-muted rounded-xl p-2.5">
-          <p className="text-[10px] text-muted-foreground">{p.pair}</p>
-          <p className="text-xs font-semibold text-success flex items-center gap-1">
-            <TrendingUp size={10} /> {p.val}
-          </p>
-        </div>
-      ))}
-    </div>
-
-    <div className="glass-gold rounded-2xl p-3">
-      <div className="flex items-center justify-between mb-2.5">
-        <p className="text-[10px] uppercase tracking-widest text-muted-foreground">Trade history</p>
-        <span className="text-[9px] text-muted-foreground">Last 5</span>
-      </div>
-      <div className="space-y-2">
-        {trades.map((t, i) => (
-          <div key={i} className="flex items-center justify-between text-[11px]">
-            <div className="flex items-center gap-2">
-              <div className={`w-5 h-5 rounded-full flex items-center justify-center ${t.up ? "bg-success/15" : "bg-destructive/15"}`}>
-                {t.up ? <ArrowUpRight size={10} className="text-success" /> : <ArrowDownRight size={10} className="text-destructive" />}
-              </div>
-              <div>
-                <p className="font-semibold leading-tight">{t.pair}</p>
-                <p className="text-[9px] text-muted-foreground leading-tight">{t.type} · {t.time}</p>
-              </div>
+    {/* Main scrollable area */}
+    <div className="flex-1 px-3 space-y-3 overflow-hidden">
+      {/* AI ENGINE ACTIVE card */}
+      <div className="rounded-2xl border border-primary/30 bg-card/80 p-3.5">
+        <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center gap-2">
+            <div className="w-7 h-7 rounded-full bg-primary/15 border border-primary/40 flex items-center justify-center">
+              <Activity size={12} className="text-primary" />
             </div>
-            <span className={`font-semibold ${t.up ? "text-success" : "text-destructive"}`}>{t.pnl}</span>
+            <div>
+              <p className="text-[9px] font-bold text-primary tracking-widest">AI ENGINE ACTIVE</p>
+              <p className="text-[8px] text-muted-foreground">Settlement at 12:00 AM</p>
+            </div>
           </div>
+          <div className="relative">
+            <div className="w-2 h-2 rounded-full bg-success" />
+            <div className="absolute inset-0 rounded-full bg-success/50 animate-ping" />
+          </div>
+        </div>
+        <p className="text-[10px] text-muted-foreground mt-2">Total Capital</p>
+        <p className="font-display font-extrabold text-2xl leading-none mt-0.5">$228.06</p>
+        <p className="text-[10px] text-muted-foreground mt-1">≈ ₹20,525.40</p>
+        <button className="mt-3 w-full rounded-full py-2.5 flex items-center justify-center gap-2 text-xs font-bold text-primary-foreground gradient-signal shadow-gold">
+          Add capital <ArrowRight size={12} />
+        </button>
+      </div>
+
+      {/* Today's Breakdown */}
+      <div className="rounded-2xl border border-border/60 bg-card/60 p-3">
+        <div className="flex items-center justify-between mb-2">
+          <div>
+            <p className="font-display font-bold text-xs leading-tight">Today's Breakdown</p>
+            <p className="text-[8px] text-muted-foreground">29 Apr 2026</p>
+          </div>
+          <span className="text-[8px] font-bold text-success tracking-widest">PROFITABLE</span>
+        </div>
+        <div className="grid grid-cols-2 gap-2">
+          {[
+            { label: "TRADES TAKEN", value: "1", sub: "1 Win • 0 Loss", tone: "default" },
+            { label: "NET PROFIT", value: "+$1.95", sub: "₹175.50", tone: "success" },
+            { label: "PLATFORM FEE", value: "-$0.49", sub: "20% of gross", tone: "destructive" },
+            { label: "WIN / LOSS RATE", value: "100%", sub: "Today's accuracy", tone: "default" },
+          ].map((c) => (
+            <div key={c.label} className="rounded-xl border border-border/50 bg-secondary/30 p-2">
+              <p className="text-[7px] font-bold text-muted-foreground tracking-widest">{c.label}</p>
+              <p
+                className={`font-display font-extrabold text-base leading-tight mt-1 ${
+                  c.tone === "success" ? "text-success" : c.tone === "destructive" ? "text-destructive" : "text-foreground"
+                }`}
+              >
+                {c.value}
+              </p>
+              <p className="text-[7px] text-muted-foreground mt-0.5">{c.sub}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    {/* Bottom nav */}
+    <div className="px-3 pb-3 pt-2">
+      <div className="flex items-center gap-1.5">
+        <button className="flex-1 rounded-full py-2 px-3 flex items-center justify-center gap-1.5 gradient-signal shadow-gold">
+          <LayoutGrid size={11} className="text-primary-foreground" />
+          <span className="text-[10px] font-bold text-primary-foreground tracking-wider">DASHBOARD</span>
+        </button>
+        {[Wallet, Send, Menu].map((Icon, i) => (
+          <button key={i} className="w-9 h-9 rounded-full bg-secondary/60 border border-border/50 flex items-center justify-center">
+            <Icon size={12} className="text-muted-foreground" />
+          </button>
         ))}
       </div>
     </div>
@@ -95,8 +110,7 @@ export default function PhoneMockup() {
       <div className="absolute -inset-12 bg-accent/15 blur-3xl rounded-full" />
       <div className="relative w-full h-full rounded-[2.5rem] panel-strong p-3 shadow-gold">
         <div className="w-full h-full rounded-[2rem] bg-background overflow-hidden relative">
-          <div className="absolute inset-0 editorial-grid opacity-40" />
-          <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-primary/15 to-transparent z-0" />
+          <div className="absolute inset-0 editorial-grid opacity-30" />
           {/* Notch */}
           <div className="absolute top-2 left-1/2 -translate-x-1/2 w-20 h-5 bg-background rounded-full z-20 border border-border/60" />
           <div className="relative h-full overflow-hidden">
