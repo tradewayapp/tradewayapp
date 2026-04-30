@@ -147,8 +147,8 @@ export default function FeatureGrid() {
           </Reveal>
 
           {/* Hands-free wide */}
-          <Reveal delay={0.25}>
-            <div className="md:col-span-6 panel rounded-3xl p-6 sm:p-8 hover-lift h-full relative overflow-hidden">
+          <Reveal delay={0.25} className="md:col-span-6">
+            <div className="panel rounded-3xl p-6 sm:p-8 hover-lift h-full relative overflow-hidden">
               <div className="absolute inset-0 dot-grid opacity-30" />
               <div className="relative flex flex-col sm:flex-row items-start sm:items-center gap-5 justify-between">
                 <div className="flex items-start gap-4">
