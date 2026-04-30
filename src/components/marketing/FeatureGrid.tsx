@@ -117,8 +117,8 @@ export default function FeatureGrid() {
           </Reveal>
 
           {/* Referral — wider */}
-          <Reveal delay={0.2}>
-            <div className="md:col-span-4 panel-strong rounded-3xl p-6 sm:p-8 hover-lift h-full relative overflow-hidden">
+          <Reveal delay={0.2} className="md:col-span-4">
+            <div className="panel-strong rounded-3xl p-6 sm:p-8 hover-lift h-full relative overflow-hidden">
               <div className="absolute -bottom-16 -right-16 w-72 h-72 bg-accent/15 blur-3xl rounded-full" />
               <div className="relative flex flex-col sm:flex-row items-start sm:items-center gap-6">
                 <div>
