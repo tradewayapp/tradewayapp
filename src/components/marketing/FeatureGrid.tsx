@@ -98,8 +98,8 @@ export default function FeatureGrid() {
           </Reveal>
 
           {/* KYC */}
-          <Reveal delay={0.15}>
-            <div className="md:col-span-2 panel rounded-3xl p-6 hover-lift h-full relative overflow-hidden">
+          <Reveal delay={0.15} className="md:col-span-2">
+            <div className="panel rounded-3xl p-6 hover-lift h-full relative overflow-hidden">
               <div className="relative">
                 <div className="w-10 h-10 rounded-xl glass-gold flex items-center justify-center mb-4">
                   <ShieldCheck size={18} className="text-primary" />
