@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { APK_DOWNLOAD_URL } from "@/lib/appDownload";
 import AuroraBackground from "./AuroraBackground";
-import LiveTicker from "./LiveTicker";
+
 import MagneticButton from "./MagneticButton";
 import AnimatedCounter from "./AnimatedCounter";
 
