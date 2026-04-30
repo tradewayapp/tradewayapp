@@ -46,9 +46,9 @@ export default function Hero() {
             transition={{ duration: 0.7, delay: 0.05 }}
             className="font-display font-extrabold leading-[0.95] tracking-tight text-[2.4rem] sm:text-[3.4rem] lg:text-[4.6rem]"
           >
-            AI trades forex.
+            Welcome to the world of
             <br />
-            <span className="text-gold">You earn the profits.</span>
+            <span className="text-gold">AI-based Profitable Trading.</span>
           </motion.h1>
 
           <motion.p

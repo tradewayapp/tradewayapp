@@ -17,8 +17,8 @@ export default function FeatureGrid() {
         {/* Bento grid */}
         <div className="grid grid-cols-1 md:grid-cols-6 auto-rows-[minmax(180px,auto)] gap-4 sm:gap-5">
           {/* Big tile: AI on XAU/USD */}
-          <Reveal>
-            <div className="md:col-span-4 md:row-span-2 panel-strong rounded-3xl p-6 sm:p-8 hover-lift relative overflow-hidden h-full">
+          <Reveal className="md:col-span-4 md:row-span-2">
+            <div className="panel-strong rounded-3xl p-6 sm:p-8 hover-lift relative overflow-hidden h-full">
               <div className="absolute -top-20 -right-20 w-72 h-72 bg-primary/20 blur-3xl rounded-full" />
               <div className="relative">
                 <div className="flex items-center gap-2 mb-5">
@@ -60,8 +60,8 @@ export default function FeatureGrid() {
           </Reveal>
 
           {/* Daily settlement */}
-          <Reveal delay={0.05}>
-            <div className="md:col-span-2 panel rounded-3xl p-6 hover-lift h-full relative overflow-hidden">
+          <Reveal delay={0.05} className="md:col-span-2">
+            <div className="panel rounded-3xl p-6 hover-lift h-full relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 bg-accent/15 blur-2xl rounded-full" />
               <div className="relative">
                 <div className="w-10 h-10 rounded-xl glass-purple flex items-center justify-center mb-4">
@@ -78,8 +78,8 @@ export default function FeatureGrid() {
           </Reveal>
 
           {/* Dual currency */}
-          <Reveal delay={0.1}>
-            <div className="md:col-span-2 panel rounded-3xl p-6 hover-lift h-full relative overflow-hidden">
+          <Reveal delay={0.1} className="md:col-span-2">
+            <div className="panel rounded-3xl p-6 hover-lift h-full relative overflow-hidden">
               <div className="relative">
                 <div className="w-10 h-10 rounded-xl glass-gold flex items-center justify-center mb-4">
                   <Wallet size={18} className="text-primary" />
@@ -98,8 +98,8 @@ export default function FeatureGrid() {
           </Reveal>
 
           {/* KYC */}
-          <Reveal delay={0.15}>
-            <div className="md:col-span-2 panel rounded-3xl p-6 hover-lift h-full relative overflow-hidden">
+          <Reveal delay={0.15} className="md:col-span-2">
+            <div className="panel rounded-3xl p-6 hover-lift h-full relative overflow-hidden">
               <div className="relative">
                 <div className="w-10 h-10 rounded-xl glass-gold flex items-center justify-center mb-4">
                   <ShieldCheck size={18} className="text-primary" />
@@ -117,8 +117,8 @@ export default function FeatureGrid() {
           </Reveal>
 
           {/* Referral — wider */}
-          <Reveal delay={0.2}>
-            <div className="md:col-span-4 panel-strong rounded-3xl p-6 sm:p-8 hover-lift h-full relative overflow-hidden">
+          <Reveal delay={0.2} className="md:col-span-4">
+            <div className="panel-strong rounded-3xl p-6 sm:p-8 hover-lift h-full relative overflow-hidden">
               <div className="absolute -bottom-16 -right-16 w-72 h-72 bg-accent/15 blur-3xl rounded-full" />
               <div className="relative flex flex-col sm:flex-row items-start sm:items-center gap-6">
                 <div>
@@ -147,8 +147,8 @@ export default function FeatureGrid() {
           </Reveal>
 
           {/* Hands-free wide */}
-          <Reveal delay={0.25}>
-            <div className="md:col-span-6 panel rounded-3xl p-6 sm:p-8 hover-lift h-full relative overflow-hidden">
+          <Reveal delay={0.25} className="md:col-span-6">
+            <div className="panel rounded-3xl p-6 sm:p-8 hover-lift h-full relative overflow-hidden">
               <div className="absolute inset-0 dot-grid opacity-30" />
               <div className="relative flex flex-col sm:flex-row items-start sm:items-center gap-5 justify-between">
                 <div className="flex items-start gap-4">
