@@ -60,8 +60,8 @@ export default function FeatureGrid() {
           </Reveal>
 
           {/* Daily settlement */}
-          <Reveal delay={0.05}>
-            <div className="md:col-span-2 panel rounded-3xl p-6 hover-lift h-full relative overflow-hidden">
+          <Reveal delay={0.05} className="md:col-span-2">
+            <div className="panel rounded-3xl p-6 hover-lift h-full relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 bg-accent/15 blur-2xl rounded-full" />
               <div className="relative">
                 <div className="w-10 h-10 rounded-xl glass-purple flex items-center justify-center mb-4">
