@@ -16,21 +16,21 @@
     --popover: 0 0% 100%;
     --popover-foreground: 240 14% 10%;
 
-    /* Deep teal — primary (pairs with brand green) */
-    --primary: 184 88% 38%;
+    /* Sunset orange — primary (warm fire palette) */
+    --primary: 18 92% 54%;
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 178 90% 46%;
+    --primary-glow: 28 96% 58%;
 
-    --secondary: 240 10% 95%;
+    --secondary: 30 25% 94%;
     --secondary-foreground: 240 14% 10%;
 
-    --muted: 240 10% 95%;
-    --muted-foreground: 240 6% 38%;
+    --muted: 30 25% 94%;
+    --muted-foreground: 24 10% 38%;
 
-    /* Brand green — secondary accent (matches logo) */
-    --accent: 152 68% 42%;
-    --accent-foreground: 0 0% 100%;
-    --accent-glow: 148 72% 52%;
+    /* Amber gold — secondary accent */
+    --accent: 42 96% 52%;
+    --accent-foreground: 240 14% 10%;
+    --accent-glow: 38 100% 58%;
 
     --destructive: 0 78% 52%;
     --destructive-foreground: 0 0% 100%;
