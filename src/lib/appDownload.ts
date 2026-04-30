@@ -1,8 +1,9 @@
-// GitHub Releases source URL — fetched in JS only, never shown to users.
+// Public Play Store listing for TradeWay.
 export const APK_SOURCE_URL =
-  "https://github.com/tradewayapp/tradewayapp/releases/latest/download/trade_way.apk";
+  "https://play.google.com/store/apps/details?id=com.tradeway";
 
-// Clean same-origin path users see in their browser. Works on preview and custom domains.
-export const APK_DOWNLOAD_URL = "/download/tradeway.apk";
+// Users are sent directly to the Play Store listing.
+export const APK_DOWNLOAD_URL =
+  "https://play.google.com/store/apps/details?id=com.tradeway";
 
-export const APK_FILENAME = "TradeWay.apk";
+export const APK_FILENAME = "TradeWay";
