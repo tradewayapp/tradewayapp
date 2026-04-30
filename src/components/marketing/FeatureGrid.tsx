@@ -17,8 +17,8 @@ export default function FeatureGrid() {
         {/* Bento grid */}
         <div className="grid grid-cols-1 md:grid-cols-6 auto-rows-[minmax(180px,auto)] gap-4 sm:gap-5">
           {/* Big tile: AI on XAU/USD */}
-          <Reveal>
-            <div className="md:col-span-4 md:row-span-2 panel-strong rounded-3xl p-6 sm:p-8 hover-lift relative overflow-hidden h-full">
+          <Reveal className="md:col-span-4 md:row-span-2">
+            <div className="panel-strong rounded-3xl p-6 sm:p-8 hover-lift relative overflow-hidden h-full">
               <div className="absolute -top-20 -right-20 w-72 h-72 bg-primary/20 blur-3xl rounded-full" />
               <div className="relative">
                 <div className="flex items-center gap-2 mb-5">
