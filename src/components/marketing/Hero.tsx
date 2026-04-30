@@ -109,20 +109,12 @@ export default function Hero() {
             </div>
             <div className="hidden sm:block w-px h-4 bg-border" />
             <div className="inline-flex items-center gap-1.5">
-              <AnimatedCounter to={12483} className="text-foreground font-display font-bold text-base tabular-nums" />
+              <span className="text-foreground font-display font-bold text-base tabular-nums">1000+</span>
               <span>traders</span>
-            </div>
-            <div className="hidden sm:block w-px h-4 bg-border" />
-            <div className="inline-flex items-center gap-1.5">
-              <span className="text-foreground font-display font-bold text-base">₹</span>
-              <AnimatedCounter to={4.21} decimals={2} className="text-foreground font-display font-bold text-base tabular-nums" />
-              <span>Cr settled today</span>
             </div>
           </motion.div>
         </div>
       </div>
-
-      <LiveTicker />
     </section>
   );
 }
