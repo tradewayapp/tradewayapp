@@ -3,9 +3,9 @@ import { ArrowLeft, FileText, Percent, AlertCircle, Banknote } from "lucide-reac
 import { useNavigate } from "react-router-dom";
 
 const sections = [
-  { icon: <Banknote className="w-5 h-5" />, title: "Minimum Capital", content: "The minimum capital required to start trading on TradeWay is ₹50,000 (approximately $500 USD). Users can add capital via bank transfer or USDT TRC20 cryptocurrency." },
+  { icon: <Banknote className="w-5 h-5" />, title: "Minimum Capital", content: "The minimum capital required to start trading on TradeWay is ₹9,000 (approximately $100 USD). Users can add capital via bank transfer or UPI." },
   { icon: <Percent className="w-5 h-5" />, title: "Platform Fee", content: "TradeWay charges a platform fee of 20% on gross profits. This fee is deducted automatically during daily settlement at 12:00 AM IST. There are no hidden charges, subscription fees, or withdrawal fees." },
-  { icon: <FileText className="w-5 h-5" />, title: "Referral Program", content: "Users can earn referral income on the capital added by referred users. Step A (Direct): 1% monthly, Step B (Second level): 0.50% monthly, Step C (Third level): 0.25% monthly. Referral earnings are credited daily (monthly rate ÷ 30)." },
+  { icon: <FileText className="w-5 h-5" />, title: "Referral Program", content: "Users can earn referral income on the capital added by referred users. Step A (Direct): 2% monthly, Step B (Second level): 1% monthly, Step C (Third level): 0.50% monthly. Referral earnings are credited daily (monthly rate ÷ 30)." },
   { icon: <AlertCircle className="w-5 h-5" />, title: "Risk Disclaimer", content: "Forex trading involves substantial risk of loss and is not suitable for all investors. Past performance is not indicative of future results. By using TradeWay, you acknowledge that you understand the risks involved and agree to bear all responsibility for your investment decisions." },
 ];
 
