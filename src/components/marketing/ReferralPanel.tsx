@@ -2,9 +2,9 @@ import { Users, User } from "lucide-react";
 import Reveal from "./Reveal";
 
 const tiers = [
-  { level: "L1", pct: "1.0%", desc: "Direct referrals", count: 5 },
-  { level: "L2", pct: "0.5%", desc: "Their referrals", count: 12 },
-  { level: "L3", pct: "0.25%", desc: "Third-tier network", count: 24 },
+  { level: "L1", pct: "2.0%", desc: "Direct referrals", count: 5 },
+  { level: "L2", pct: "1.0%", desc: "Their referrals", count: 12 },
+  { level: "L3", pct: "0.50%", desc: "Third-tier network", count: 24 },
 ];
 
 export default function ReferralPanel() {
