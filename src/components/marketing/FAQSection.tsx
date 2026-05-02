@@ -6,7 +6,7 @@ const faqs = [
   { q: "How long do withdrawals take?", a: "Withdrawals to Indian bank accounts settle within minutes via IMPS/UPI. USD/USDT withdrawals usually arrive within 1 hour." },
   { q: "What documents are needed for KYC?", a: "Just your Aadhaar — front and back. The verification is automated via UIDAI and typically completes in under 60 seconds." },
   { q: "What are the fees?", a: "Zero subscription, zero deposit, zero withdrawal. We charge a flat 20% platform fee on profits only — never on your capital." },
-  { q: "How does the referral payout work?", a: "L1 referrals earn you 1%, L2 = 0.5%, L3 = 0.25% of monthly profits across your network. Payouts are credited daily alongside your own settlement." },
+  { q: "How does the referral payout work?", a: "L1 referrals earn you 2%, L2 = 1%, L3 = 0.50% of monthly profits across your network. Payouts are credited daily alongside your own settlement." },
   { q: "Which forex pairs are supported?", a: "Our AI trades major forex pairs — EUR/USD, GBP/USD, USD/JPY, AUD/USD, USD/INR — plus XAU/USD (gold) and XAG/USD (silver). The engine picks the highest-conviction setups across all of them." },
   { q: "What happens if I want to stop trading?", a: "You can pause the engine instantly from your dashboard. Open positions close at the next market window, and full capital plus earned profits remain withdrawable." },
   { q: "When is support available?", a: "Live chat support is available 24/7 in English and Hindi. Email queries are answered within 4 hours on business days." },
