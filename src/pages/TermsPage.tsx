@@ -15,7 +15,7 @@ export default function TermsPage() {
   return (
     <div className="min-h-screen bg-background pb-10">
       <div className="px-5 pt-6 pb-4 flex items-center gap-3">
-        <button onClick={() => navigate("/more")} className="w-10 h-10 rounded-2xl panel-muted flex items-center justify-center">
+        <button onClick={() => navigate("/")} className="w-10 h-10 rounded-2xl panel-muted flex items-center justify-center">
           <ArrowLeft className="w-4 h-4" />
         </button>
         <div>
