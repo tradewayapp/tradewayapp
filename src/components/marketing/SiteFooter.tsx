@@ -15,7 +15,6 @@ const cols = [
   {
     title: "Company",
     links: [
-      { label: "About", href: "/about" },
       { label: "Contact", href: "/contact" },
       { label: "Learn", href: "/learn" },
       { label: "AI Guide", href: "/ai-guide" },
@@ -32,7 +31,6 @@ const cols = [
   {
     title: "Support",
     links: [
-      { label: "Help Center", href: "/help-center" },
       { label: "FAQ", href: "/faq" },
       { label: "Support", href: "/support" },
       { label: "Delete Account", href: "/delete-account" },
