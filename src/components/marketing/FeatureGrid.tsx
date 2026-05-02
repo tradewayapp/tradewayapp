@@ -132,9 +132,9 @@ export default function FeatureGrid() {
                 </div>
                 <div className="flex gap-2 sm:ml-auto">
                   {[
-                    { l: "L1", v: "1.0%" },
-                    { l: "L2", v: "0.5%" },
-                    { l: "L3", v: "0.25%" },
+                    { l: "L1", v: "2.0%" },
+                    { l: "L2", v: "1.0%" },
+                    { l: "L3", v: "0.50%" },
                   ].map((t) => (
                     <div key={t.l} className="panel-muted rounded-xl px-4 py-3 text-center min-w-[72px]">
                       <p className="text-[9px] uppercase tracking-widest text-muted-foreground">{t.l}</p>
