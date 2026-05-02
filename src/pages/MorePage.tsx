@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { BookOpen, LogOut, ShieldCheck, UserRound, LifeBuoy, Lock, FileText, Bot, ChevronRight } from "lucide-react";
+import { BookOpen, LogOut, UserRound, Lock, FileText, Bot, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import BottomNav from "@/components/BottomNav";
 import { toast } from "sonner";
@@ -43,7 +43,6 @@ export default function MorePage() {
             <p className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground font-semibold">Account</p>
           </div>
           <MenuItem icon={<UserRound className="w-4.5 h-4.5" />} title="Profile" desc="Edit personal details" onClick={() => navigate("/profile-setup")} />
-          <MenuItem icon={<ShieldCheck className="w-4.5 h-4.5" />} title="KYC" desc="Aadhaar verification" onClick={() => navigate("/kyc")} />
         </motion.section>
 
         <motion.section initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }} className="panel rounded-[1.9rem] overflow-hidden">
@@ -58,7 +57,6 @@ export default function MorePage() {
           <div className="px-5 pt-4 pb-2">
             <p className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground font-semibold">Support & legal</p>
           </div>
-          <MenuItem icon={<LifeBuoy className="w-4.5 h-4.5" />} title="Help Center" desc="FAQs and support" onClick={() => navigate("/help-center")} />
           <MenuItem icon={<Lock className="w-4.5 h-4.5" />} title="Privacy" desc="Security and policy" onClick={() => navigate("/privacy")} />
           <MenuItem icon={<FileText className="w-4.5 h-4.5" />} title="Terms" desc="Platform conditions" onClick={() => navigate("/terms")} />
         </motion.section>

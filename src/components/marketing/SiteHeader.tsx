@@ -12,7 +12,6 @@ const links = [
   { label: "Pricing", href: "/#pricing" },
   { label: "Referral", href: "/#referral" },
   { label: "FAQ", href: "/#faq" },
-  { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
 
