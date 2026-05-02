@@ -62,7 +62,6 @@ export default function ReferralPanel() {
                         </div>
                         <div>
                           <p className="font-display font-bold text-base">{t.desc}</p>
-                          <p className="text-[11px] text-muted-foreground mt-0.5">~{t.count} avg per user</p>
                         </div>
                       </div>
                       <p className="font-display font-extrabold text-3xl text-gold tabular-nums">{t.pct}</p>
