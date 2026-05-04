@@ -8,6 +8,7 @@ const incl = [
   "Zero deposit charges",
   "Zero withdrawal fees",
   "20% platform fee on profits only",
+  "Earn up to 2% referral commission",
   "Settled daily at 12 AM IST",
   "Minimum capital $100 / ₹10,000",
 ];
