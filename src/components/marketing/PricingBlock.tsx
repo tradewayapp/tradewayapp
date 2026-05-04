@@ -5,10 +5,9 @@ import Reveal from "./Reveal";
 
 const incl = [
   "Zero subscription fees",
-  "Zero deposit charges",
-  "Zero withdrawal fees",
+  "2% deposit charges",
+  "2% withdrawal fees",
   "20% platform fee on profits only",
-  "Earn up to 2% referral commission",
   "Settled daily at 12 AM IST",
   "Minimum capital $100 / ₹10,000",
 ];
