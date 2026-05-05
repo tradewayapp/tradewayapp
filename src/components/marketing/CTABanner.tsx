@@ -32,7 +32,7 @@ export default function CTABanner() {
                 <span className="text-gold">is waiting.</span>
               </h2>
               <p className="mt-6 text-base text-foreground/80 max-w-md mx-auto">
-                Verify Aadhaar, fund $100 / ₹10,000, and the AI takes over. First settlement by tomorrow morning.
+                Verify Aadhaar, fund $100 / ₹9,000, and the AI takes over. First settlement by tomorrow morning.
               </p>
 
               <div className="mt-9 flex flex-col sm:flex-row gap-3 justify-center items-center">
