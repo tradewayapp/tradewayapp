@@ -2,14 +2,14 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import Reveal from "./Reveal";
 
 const faqs = [
-  { q: "What's the minimum capital to start?", a: "You can begin trading with as little as ₹125. There's no upper limit, and you can top up anytime via UPI, net banking, or USDT." },
-  { q: "How long do withdrawals take?", a: "Withdrawals to Indian bank accounts settle within minutes via IMPS/UPI. USD/USDT withdrawals usually arrive within 1 hour." },
+  { q: "What's the minimum capital to start?", a: "You can begin trading with as little as $100 / ₹9,000. There's no upper limit, and you can top up anytime via UPI or net banking." },
+  { q: "How long do withdrawals take?", a: "Withdrawals are processed within 48 hours on working days (Monday to Friday) to your linked Indian bank account via IMPS/UPI." },
   { q: "What documents are needed for KYC?", a: "Just your Aadhaar — front and back. The verification is automated via UIDAI and typically completes in under 60 seconds." },
-  { q: "What are the fees?", a: "Zero subscription, zero deposit, zero withdrawal. We charge a flat 20% platform fee on profits only — never on your capital." },
+  { q: "What are the fees?", a: "Zero subscription and zero deposit charges. Withdrawals carry a 2% fee, and we charge a flat 20% platform fee on profits only — never on your capital." },
   { q: "How does the referral payout work?", a: "L1 referrals earn you 2%, L2 = 1%, L3 = 0.50% of monthly profits across your network. Payouts are credited daily alongside your own settlement." },
   { q: "Which forex pairs are supported?", a: "Our AI trades major forex pairs — EUR/USD, GBP/USD, USD/JPY, AUD/USD, USD/INR — plus XAU/USD (gold) and XAG/USD (silver). The engine picks the highest-conviction setups across all of them." },
   { q: "What happens if I want to stop trading?", a: "You can pause the engine instantly from your dashboard. Open positions close at the next market window, and full capital plus earned profits remain withdrawable." },
-  { q: "When is support available?", a: "Live chat support is available 24/7 in English and Hindi. Email queries are answered within 4 hours on business days." },
+  { q: "When is support available?", a: "Call and chat support is available from 10 AM to 6 PM, Monday to Friday, in English and Hindi." },
 ];
 
 export default function FAQSection() {
