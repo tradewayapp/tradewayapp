@@ -16,7 +16,7 @@ export default function MarketingHome() {
   useEffect(() => {
     document.title = "TradeWay — AI-Powered Forex Trading on Autopilot";
     const meta = document.querySelector('meta[name="description"]');
-    if (meta) meta.setAttribute("content", "TradeWay is an AI forex trading platform — EUR/USD, GBP/USD, USD/JPY, gold and more. Sit back while our engine trades 24/5 and pays you daily in USD or INR. Start with $100 / ₹10,000.");
+    if (meta) meta.setAttribute("content", "TradeWay is an AI forex trading platform — EUR/USD, GBP/USD, USD/JPY, gold and more. Sit back while our engine trades 24/5 and pays you daily in USD or INR. Start with $100 / ₹9,000.");
   }, []);
 
   return (
